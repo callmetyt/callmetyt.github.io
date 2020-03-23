@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>javascript-let-var</title>
-      <link href="/2020/03/22/javascript-let-var/"/>
-      <url>/2020/03/22/javascript-let-var/</url>
+      <title>javascript-variable</title>
+      <link href="/2020/03/22/javascript-variable/"/>
+      <url>/2020/03/22/javascript-variable/</url>
       
-        <content type="html"><![CDATA[<p>大佬出的思考题<br>图片测试<br><img src="/picture/1.png" alt="image-20200318210623881"></p>]]></content>
+        <content type="html"><![CDATA[<p>大佬出的思考题(关于JavaScript变量环境)，做了之后感觉学了不少东西，所以在此重新整理下。</p><h1 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h1><p><img src="/javascript-variable/question1.png" alt="image1"><br>首先编译阶段，JS引擎构建全局上下文，第一个var showName变量提升，并附加默认值undefined,接下来提升函数showName，并因为重名覆盖原来的showName=undefined<br><img src="/javascript-variable/q1-huanjing.png" alt="image2"><br>接着执行js代码,调用showName函数，<strong>输出1</strong>,接着给showName赋值，变为打印2。<br>所以控制台最后输出1.<br><img src="/javascript-variable/result1.png" alt="image3"></p>]]></content>
       
       
       
