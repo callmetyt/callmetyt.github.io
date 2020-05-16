@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="javascript-variable, callmetyt">
+    <meta name="keywords" content="RCE命令注入, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>javascript-variable | callmetyt</title>
+    <title>RCE命令注入 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">javascript-variable</h1>
+                    <h1 class="description center-align post-title">RCE命令注入</h1>
                 </div>
             </div>
         </div>
@@ -426,9 +426,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CTF/">
+                                <span class="chip bg-color">CTF</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -440,7 +444,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-22
+                    2020-05-16
                 </div>
                 
 
@@ -457,22 +461,19 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>大佬出的思考题(关于JavaScript变量环境)，做了之后感觉对之前学习的东西有了一个很好的运用练习，所以在此重新整理下。</p>
-<h1 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h1><p>问题是判断下列代码的输出：<br><img src="question1.png" alt="题目1代码"><br>首先编译阶段，JS引擎构建全局上下文，第一个var showName变量提升，并附加默认值undefined,接下来提升函数showName，并因为重名覆盖原来的showName=undefined<br><img src="q1-huanjing.png" alt="变量环境"><br>接着执行js代码,调用showName函数，<strong>输出1</strong>,接着给showName赋值，变为打印2。<br>所以控制台最后输出1.<br><img src="result1.png" alt="题目一的运行结果"></p>
-<h1 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a>思考题2</h1><p>问题是优化以下代码：<br><img src="question2.png" alt="题目2代码"><br>由题目中的代码可以看出程序运行的情况：<br>函数不断地调用自身，同时也在不断地<strong>开辟栈空间</strong>用来保存自身上下文环境，从而保存当前函数运行的数据状态，那么栈空间会被迅速占满，从而发生栈溢出，程序出现错误。<br><img src="q2-1.png" alt="题目2源代码运行情况"><br>递归算法可以是代码更容易读懂，但递归总可以用循环代替，而循环不会创建函数上下文空间保存数据，在<strong>栈上占用一段空间，并不断地对上面的数据进行运算</strong>，就不会造成栈溢出。<br><img src="result2.png" alt="算法层面解决"></p>
-<h1 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a>思考题3</h1><p>判断下列代码的输出:<br><img src="question3.png" alt="题目3代码"><br>首先构建全局上下文, myname这个名称会被注册,但没有初始化<br><img src="q3-1.png" alt="初始变量环境"><br>注意点：1. var 变量存在变量提升，无视块级作用域并且在<strong>顶层</strong>注册变量且初始化为undefined。2.** let变量在块级作用域中<strong>顶层注册变量且初始化为undefined，但此时无法访问此变量，因为let变量存在一个</strong>暂时死区 temporal dead zone**。<br>执行代码第一行，初始化var变量<br><img src="q3-2.png" alt="变量初始化"><br>进入块级作用域，并对let 变量注册<br><img src="q3-3.png" alt="let变量注册"><br>此时要输出myname，let变量寻找会形成如下图的寻找方式，一旦找到就立刻返回<br><img src="q3-4.png" alt="let词法环境寻找"><br>找到myname变量，但因为myname是let变量，处于暂时死区，无法访问<br><img src="result3.png" alt="输出结果"></p>
-<h1 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a>思考题4</h1><p><img src="question4.png" alt="题目4代码"><br>首先构造上下文<br><img src="q4-1.png" alt="初始化变量环境"><br>然后调用foo函数，构造foo的上下文<br><img src="q4-2.png" alt="构建foo函数环境"><br>又调用bar.printName函数，构建其上下文，执行代码，寻找myName变量，因为bar.printName函数上下文中很明显没有myName，根据作用域链到外层寻找，且<strong>因为bar.printName函数的词法环境位于全局上下文中</strong>，则作用域链指向全局上下文，于是在全局中寻找myName，则输出115,之后又直接执行bar.printName函数，结果也一样输出115。如下图:<br><img src="q4-3.png" alt="函数调用情况与作用域链的指向"><br>代码运行结果<br><img src="result4.png" alt="输出结果"><br>由于输出的是115，<strong>foo函数调用完成之后并没有保存内部的任何变量</strong>，会直接弹出栈，所以这个代码没有形成闭包</p>
-<h1 id="思考题5"><a href="#思考题5" class="headerlink" title="思考题5"></a>思考题5</h1><p><img src="question5.png" alt="题目5代码"><br>修改此代码，使之可以更新对象数据<br>首先运行代码，输出对象，意料之中没有更新对象<br><img src="q5-1.png" alt="直接运行代码(这里修改代码，使之可以输出对象)"><br>这里问题就处在this的使用上，由于明显发生了函数嵌套，而<strong>函数嵌套的this不会继承</strong>，那么它会指向全局对象Window(非严格模式)，解决方式一般有两个<br>改为箭头函数</p>
-<pre><code>setTimeout(()=&gt;{
-    this.name=&quot;pony.ma&quot;;
-    this.age=39;
-    this.sex=&#39;female&#39;
-},100)</code></pre><p><img src="q5-2.png" alt="修改完的运行结果"><br>提前保存上一级的this</p>
-<pre><code>updataInfo:function(){
-    self=this;
-    setTimeout(.......)
-}</code></pre><p><img src="q5-3.png" alt="修改完的运行结果"></p>
-
+                <p>简单学习命令注入后利用CTFHUB的靶场进行更进一步的学习!</p>
+<h1 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h1><ul>
+<li>非常典型的一个ping指令，如果用户输入不加以过滤，就会导致命令注入（本题没有任何过滤）<br>```shell</li>
+</ul>
+<p>127.0.0.1|ls</p>
+<pre><code>利用命令管道符进行连续的命令执行，发现回显出现当前目录文件，说明存在命令注入
+```shell
+127.0.0.1|whoami</code></pre><p>另一种典型的payload</p>
+<ul>
+<li>直接利用命令读取文件内容<br>```shell</li>
+</ul>
+<p>127.0.0.1|cat flag.php</p>
+<pre><code>查看源代码获得flag</code></pre>
             </div>
             <hr/>
 
@@ -497,7 +498,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/03/22/javascript-variable/">http://callmetyt.github.io/2020/03/22/javascript-variable/</a>
+                    <a href="http://callmetyt.github.io/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/">http://callmetyt.github.io/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -534,7 +535,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/CTF/">
+                                    <span class="chip bg-color">CTF</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -573,9 +578,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/">
                     <div class="card-image">
@@ -598,9 +604,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -609,6 +615,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -627,24 +634,25 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/15/here-is-tyt/">
+                <a href="/2020/03/22/javascript-variable/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="here is tyt">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="javascript-variable">
                         
-                        <span class="card-title">here is tyt</span>
+                        <span class="card-title">javascript-variable</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            This just is a test!
+                            大佬出的思考题(关于JavaScript变量环境)，做了之后感觉对之前学习的东西有了一个很好的运用练习，所以在此重新整理下。
+思考题1问题是判断下列代码的输出：首先编译阶段，JS引擎构建全局上下文，第一个var showName变量提升，并
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-22
                             </span>
                         <span class="publish-author">
                             
