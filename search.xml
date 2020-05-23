@@ -8,13 +8,15 @@
       <link href="/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/"/>
       <url>/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/</url>
       
-        <content type="html"><![CDATA[<p>简单学习命令注入后利用CTFHUB的靶场进行更进一步的学习!</p><h1 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h1><ul><li>非常典型的一个ping指令，如果用户输入不加以过滤，就会导致命令注入（本题没有任何过滤）<br>```shell</li></ul><p>127.0.0.1|ls</p><pre><code>利用命令管道符进行连续的命令执行，发现回显出现当前目录文件，说明存在命令注入```shell127.0.0.1|whoami</code></pre><p>另一种典型的payload</p><ul><li>直接利用命令读取文件内容<br>```shell</li></ul><p>127.0.0.1|cat flag.php</p><pre><code>查看源代码获得flag</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>简单学习命令注入后利用CTFHUB的靶场进行更进一步的学习!</p><h1 id="第一题-无过滤"><a href="#第一题-无过滤" class="headerlink" title="第一题 无过滤"></a>第一题 无过滤</h1><ul><li>非常典型的一个ping指令，如果用户输入不加以过滤，就会导致命令注入（本题没有任何过滤）<br>```shell</li></ul><p>127.0.0.1|ls</p><pre><code>利用命令管道符进行连续的命令执行，发现回显出现当前目录文件，说明存在命令注入```shell127.0.0.1|whoami</code></pre><p>另一种典型的payload</p><ul><li>直接利用命令读取文件内容<br>```shell</li></ul><p>127.0.0.1|cat flag.php</p><pre><code>查看源代码获得flag# 第二题 过滤cat由于只过滤了cat，读取文件内容的命令很多，所以...- tac cat的倒置，从下往上，一行一行- nl 和cat差不多- more cat的友好版- 使用关键字过滤手段- https://www.cnblogs.com/emilyyoucan/p/8664097.html 详细资料# 第三题 过滤空格- ${IFS}- $IFS$9- ${IFS}$9- &lt;&gt; - {cat,flag.php}- 其余百度# 第四题 过滤目录分隔符使用 &amp;&amp;或者&amp; 命令连续执行，路径可以切换| 则是上一命令的结果作为下一命令的参数，路径切换只会返回结果，实际上没有切换**注意 &amp;是后台执行  ;则是连续执行**特殊编码转义- %0a 换行- %0d 回车</code></pre>]]></content>
       
       
       
         <tags>
             
             <tag> CTF </tag>
+            
+            <tag> RCE </tag>
             
         </tags>
       
@@ -30,6 +32,14 @@
         <content type="html"><![CDATA[<p>大佬出的思考题(关于JavaScript变量环境)，做了之后感觉对之前学习的东西有了一个很好的运用练习，所以在此重新整理下。</p><h1 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h1><p>问题是判断下列代码的输出：<br><img src="question1.png" alt="题目1代码"><br>首先编译阶段，JS引擎构建全局上下文，第一个var showName变量提升，并附加默认值undefined,接下来提升函数showName，并因为重名覆盖原来的showName=undefined<br><img src="q1-huanjing.png" alt="变量环境"><br>接着执行js代码,调用showName函数，<strong>输出1</strong>,接着给showName赋值，变为打印2。<br>所以控制台最后输出1.<br><img src="result1.png" alt="题目一的运行结果"></p><h1 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a>思考题2</h1><p>问题是优化以下代码：<br><img src="question2.png" alt="题目2代码"><br>由题目中的代码可以看出程序运行的情况：<br>函数不断地调用自身，同时也在不断地<strong>开辟栈空间</strong>用来保存自身上下文环境，从而保存当前函数运行的数据状态，那么栈空间会被迅速占满，从而发生栈溢出，程序出现错误。<br><img src="q2-1.png" alt="题目2源代码运行情况"><br>递归算法可以是代码更容易读懂，但递归总可以用循环代替，而循环不会创建函数上下文空间保存数据，在<strong>栈上占用一段空间，并不断地对上面的数据进行运算</strong>，就不会造成栈溢出。<br><img src="result2.png" alt="算法层面解决"></p><h1 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a>思考题3</h1><p>判断下列代码的输出:<br><img src="question3.png" alt="题目3代码"><br>首先构建全局上下文, myname这个名称会被注册,但没有初始化<br><img src="q3-1.png" alt="初始变量环境"><br>注意点：1. var 变量存在变量提升，无视块级作用域并且在<strong>顶层</strong>注册变量且初始化为undefined。2.** let变量在块级作用域中<strong>顶层注册变量且初始化为undefined，但此时无法访问此变量，因为let变量存在一个</strong>暂时死区 temporal dead zone**。<br>执行代码第一行，初始化var变量<br><img src="q3-2.png" alt="变量初始化"><br>进入块级作用域，并对let 变量注册<br><img src="q3-3.png" alt="let变量注册"><br>此时要输出myname，let变量寻找会形成如下图的寻找方式，一旦找到就立刻返回<br><img src="q3-4.png" alt="let词法环境寻找"><br>找到myname变量，但因为myname是let变量，处于暂时死区，无法访问<br><img src="result3.png" alt="输出结果"></p><h1 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a>思考题4</h1><p><img src="question4.png" alt="题目4代码"><br>首先构造上下文<br><img src="q4-1.png" alt="初始化变量环境"><br>然后调用foo函数，构造foo的上下文<br><img src="q4-2.png" alt="构建foo函数环境"><br>又调用bar.printName函数，构建其上下文，执行代码，寻找myName变量，因为bar.printName函数上下文中很明显没有myName，根据作用域链到外层寻找，且<strong>因为bar.printName函数的词法环境位于全局上下文中</strong>，则作用域链指向全局上下文，于是在全局中寻找myName，则输出115,之后又直接执行bar.printName函数，结果也一样输出115。如下图:<br><img src="q4-3.png" alt="函数调用情况与作用域链的指向"><br>代码运行结果<br><img src="result4.png" alt="输出结果"><br>由于输出的是115，<strong>foo函数调用完成之后并没有保存内部的任何变量</strong>，会直接弹出栈，所以这个代码没有形成闭包</p><h1 id="思考题5"><a href="#思考题5" class="headerlink" title="思考题5"></a>思考题5</h1><p><img src="question5.png" alt="题目5代码"><br>修改此代码，使之可以更新对象数据<br>首先运行代码，输出对象，意料之中没有更新对象<br><img src="q5-1.png" alt="直接运行代码(这里修改代码，使之可以输出对象)"><br>这里问题就处在this的使用上，由于明显发生了函数嵌套，而<strong>函数嵌套的this不会继承</strong>，那么它会指向全局对象Window(非严格模式)，解决方式一般有两个<br>改为箭头函数</p><pre><code>setTimeout(()=&gt;{    this.name=&quot;pony.ma&quot;;    this.age=39;    this.sex=&#39;female&#39;},100)</code></pre><p><img src="q5-2.png" alt="修改完的运行结果"><br>提前保存上一级的this</p><pre><code>updataInfo:function(){    self=this;    setTimeout(.......)}</code></pre><p><img src="q5-3.png" alt="修改完的运行结果"></p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
       
     </entry>
     
