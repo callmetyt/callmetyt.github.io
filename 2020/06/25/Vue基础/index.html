@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="here is tyt, callmetyt">
+    <meta name="keywords" content="Vue基础, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>here is tyt | callmetyt</title>
+    <title>Vue基础 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">here is tyt</h1>
+                    <h1 class="description center-align post-title">Vue基础</h1>
                 </div>
             </div>
         </div>
@@ -440,7 +440,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-15
+                    2020-06-25
                 </div>
                 
 
@@ -457,7 +457,186 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="This-just-is-a-test"><a href="#This-just-is-a-test" class="headerlink" title="This just is a test!"></a>This just is a test!</h1>
+                <h1 id="准备开始"><a href="#准备开始" class="headerlink" title="准备开始"></a>准备开始</h1><h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>angular 2009年</p>
+<p>react 2013年</p>
+<p>vue 2014年，(尤雨溪)中国人创建，现在美籍</p>
+<h2 id="框架和库"><a href="#框架和库" class="headerlink" title="框架和库"></a>框架和库</h2><p>库(小而精)</p>
+<ul>
+<li>jQuery库 -&gt; DOM操作+请求</li>
+<li>art-template -&gt; 模板引擎</li>
+</ul>
+<p>框架(大而全，可能包含多个库)</p>
+<ul>
+<li>DOM操作+请求+模板引擎+路由功能</li>
+</ul>
+<p>代码上</p>
+<ul>
+<li>库是引用 js 文件，调用函数，自己把控库的代码</li>
+<li>框架在帮我们运行我们写好的代码<ul>
+<li>初始化自身的行为</li>
+<li>执行你编写的代码</li>
+<li>释放一些资源<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2></li>
+</ul>
+</li>
+</ul>
+<p>直接官网下载 js 文件</p>
+<p><strong>推荐</strong>：使用 npm 进行下载(有效配合其他模块使用)</p>
+<h1 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span>
+        {{msg}}    //模板标记
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//script</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    el<span class="token punctuation">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//绑定目标</span>
+    data<span class="token punctuation">:</span><span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//数据属性(正确用法在指令中)</span>
+        msg<span class="token punctuation">:</span><span class="token string">'haha'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`&lt;div>{{msg}}&lt;/div>`</span></span>    <span class="token comment" spellcheck="true">//直接定义渲染目标，这将会跳过原html中书写的，不去渲染</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<p>模板标记支持变量运算，DOM操作,比如</p>
+<pre class=" language-html"><code class="language-html">{{1+1}}    //渲染为2
+{{str.split('').reserve().join('')}}    //会将数据属性中的str变量翻转
+{{1>2?'真':'假'}}    //渲染为假</code></pre>
+<p><strong>注意只能包含单个表达式</strong></p>
+<h2 id="Vue对象"><a href="#Vue对象" class="headerlink" title="Vue对象"></a>Vue对象</h2><p>new的基础上可以返回一个Vue对象</p>
+<p>内部拥有我们定义的数据</p>
+<p>内部早就定义好的属性会以$开头</p>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>vue提供了一些对于页面+数据更为方便的输出，这些操作叫做指令，以 v-xxx表示</li>
+<li>指令封装了一些DOM行为</li>
+<li>注意，指令进行操作时内部的值均为data数据，如果使用原生形态，内部则是字符串</li>
+</ul>
+<h2 id="v-text-v-html"><a href="#v-text-v-html" class="headerlink" title="v-text v-html"></a>v-text v-html</h2><pre class=" language-javascript"><code class="language-javascript">data<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//其实这里应该要用函数返回值，后期讲解为什么，以后就用函数形式</span>
+    <span class="token keyword">return</span><span class="token punctuation">{</span>
+        msg<span class="token punctuation">:</span><span class="token string">'指令操作'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;h2>{{msg}}&lt;/h2>
+    &lt;p v-text='msg'>&lt;/p> //相当于innertext
+    &lt;div v-html='msg'>&lt;/div> //相当于innerhtml
+`</span></span></code></pre>
+<p>注意 Mustache 语法(双大括号)，会把其中的内容解释为普通文本，如果是 html 代码，请使用 v-html之类的</p>
+<h2 id="v-if-v-else-v-show"><a href="#v-if-v-else-v-show" class="headerlink" title="v-if v-else v-show"></a>v-if v-else v-show</h2><pre class=" language-javascript"><code class="language-javascript">data<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">{</span>
+        msg<span class="token punctuation">:</span><span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;p v-if='msg'>if显示&lt;/p>    //字符串内的值为真，则显示
+    &lt;p v-else>else显示&lt;/p>    //为假显示else
+    &lt;p v-if='Math.random()>0.5'>随机显示&lt;/p> //值必须是字符串，可以嵌套函数
+    &lt;p v-show='msg'>show显示&lt;/p>    //show显示，和if差不多
+`</span></span></code></pre>
+<h3 id="if和show的区别"><a href="#if和show的区别" class="headerlink" title="if和show的区别"></a>if和show的区别</h3><p>v-if 实际上是对DOM中的 appendChild() 和 removeChild() 的操作，v-show 是对 css 的 display 属性的操作，<strong>所以 v-if 开销较大，不适合频繁切换的组件</strong></p>
+<h3 id="v-if-else"><a href="#v-if-else" class="headerlink" title="v-if-else"></a>v-if-else</h3><p>字面意思，可以多重嵌套 if</p>
+<h3 id="key管理可复用元素"><a href="#key管理可复用元素" class="headerlink" title="key管理可复用元素"></a>key管理可复用元素</h3><p>Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染</p>
+<p>也就是说，相同的元素标签，Vue不会重新渲染，只是替换变化的值</p>
+<p>使用 key 属性标志需要区别的元素，即可重新渲染</p>
+<h2 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h2><pre class=" language-javascript"><code class="language-javascript">data<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">{</span>
+        msg<span class="token punctuation">:</span><span class="token string">'hahaah'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;div v-bind:class='msg'>&lt;/div> //渲染后div会得到一个 hahaah 的class
+    &lt;div :class='msg'>&lt;/div> //v-bind的简写形式
+`</span></span></code></pre>
+<h2 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h2><pre class=" language-javascript"><code class="language-javascript">template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;div v-on:事件名='调用函数'>&lt;/div> //绑定事件函数
+    &lt;div @:事件名='调用函数'>&lt;/div> //v-on的简写
+`</span></span>
+methods<span class="token punctuation">:</span><span class="token punctuation">{</span>
+    <span class="token function">待调用函数名</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>注意：当调用函数重新渲染时，是整个模板重新渲染</p>
+<h2 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h2><pre class=" language-javascript"><code class="language-javascript">data<span class="token punctuation">:</span><span class="token punctuation">{</span>
+    lists<span class="token punctuation">:</span><span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>id<span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">,</span>name<span class="token punctuation">:</span><span class="token string">'hah'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>id<span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span>name<span class="token punctuation">:</span><span class="token string">'ladjf'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    obj<span class="token punctuation">:</span><span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span><span class="token string">'tyt'</span><span class="token punctuation">,</span>
+        age<span class="token punctuation">:</span><span class="token string">'19'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;ul>
+        &lt;li v-for='item in lists'> //遍历数组
+            &lt;h5 v-html='item.id'>&lt;/h5>
+            &lt;h5 v-html='item.name'>&lt;/h5>
+        &lt;/li>
+    &lt;/ul>    //一个ul列表，并且遍历data中的lists，然后输出数据到视图上
+
+    &lt;ul>    //遍历对象
+        &lt;li v-for='(value.key) in person'> //注意value遍历person，key则是索引
+            {{key}}={{value}}
+        &lt;/li>
+    &lt;/ul>
+`</span></span></code></pre>
+<h2 id="v-model-双向数据绑定"><a href="#v-model-双向数据绑定" class="headerlink" title="v-model 双向数据绑定"></a>v-model 双向数据绑定</h2><pre class=" language-javascript"><code class="language-javascript">templat<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;input type="text" v-model="msg">
+    &lt;h3 v-html="msg">&lt;/h3>
+`</span></span><span class="token punctuation">,</span>
+<span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">{</span>
+        msg<span class="token punctuation">:</span><span class="token string">'hahaha'</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>    <span class="token comment" spellcheck="true">//当input的值变化时，h3的值也会变化</span></code></pre>
+<p>v-model 实际上是一种语法糖，可以用以下组合实现</p>
+<pre class=" language-javascript"><code class="language-javascript">v<span class="token operator">-</span>value<span class="token operator">=</span><span class="token string">"xxx"</span> v<span class="token operator">-</span>on<span class="token punctuation">:</span>input<span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>msg<span class="token operator">=</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//注意this指向实例化的Vue对象，e.target指向触发事件的元素</span></code></pre>
+<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><h2 id="局部组件"><a href="#局部组件" class="headerlink" title="局部组件"></a>局部组件</h2><p>仅保留el，其余的属性保存在一个<strong>对象</strong>中</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//1.声明局部组件</span>
+<span class="token keyword">let</span> son<span class="token operator">=</span><span class="token punctuation">{</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">``</span></span><span class="token punctuation">,</span>
+    methods<span class="token punctuation">:</span><span class="token operator">...</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> all<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    el<span class="token punctuation">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
+    components<span class="token punctuation">:</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//2.挂载局部组件</span>
+        son
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">` 
+        &lt;son>&lt;/son>
+`</span></span> <span class="token comment" spellcheck="true">//3.使用局部组件</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<h2 id="全局组件"><a href="#全局组件" class="headerlink" title="全局组件"></a>全局组件</h2><pre class=" language-javascript"><code class="language-javascript">Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'组件名字'</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+        ...
+    `</span></span><span class="token punctuation">,</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span><span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">//全局组件的声明方式</span></code></pre>
+<p>然后可以在任何组件中是使用、</p>
+<h2 id="数据传递-基础"><a href="#数据传递-基础" class="headerlink" title="数据传递(基础)"></a>数据传递(基础)</h2><h3 id="父组件-→-子组件"><a href="#父组件-→-子组件" class="headerlink" title="父组件 → 子组件"></a>父组件 → 子组件</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//1.在使用子组件时绑定属性</span>
+<span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span><span class="token punctuation">{</span>msg<span class="token punctuation">:</span><span class="token string">'xxx'</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">`
+    &lt;Vson :childData='msg'/>
+`</span></span>
+<span class="token comment" spellcheck="true">//2.在子组件内部props绑定属性</span>
+props<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">'childData'</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">//3.在子组件中使用</span>
+<span class="token operator">&lt;</span>p v<span class="token operator">-</span>html<span class="token operator">=</span><span class="token string">'childData'</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></code></pre>
+<p>注意绑定属性后在子组件内部使用绑定名</p>
+<h3 id="子组件-→-父组件"><a href="#子组件-→-父组件" class="headerlink" title="子组件 → 父组件"></a>子组件 → 父组件</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//1.父组件在子组件绑定自定义事件</span>
+<span class="token operator">&lt;</span>div @childHandler<span class="token operator">=</span><span class="token string">'change'</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+methods<span class="token punctuation">:</span><span class="token punctuation">{</span>
+    <span class="token function">change</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//2.子组件中触发子组件自定义事件</span>
+<span class="token operator">&lt;</span>div @click<span class="token operator">=</span><span class="token string">'changeFather'</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+methods<span class="token punctuation">:</span><span class="token punctuation">{</span>
+    <span class="token function">changeFather</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'childHandler'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//3.$emit 第一个参数是父组件自定义的事件名，可以再传入参数当做父组件事件调用函数的参数</span>
+<span class="token comment" spellcheck="true">//4.自定义事件一定通过 $emit 触发</span></code></pre>
+
             </div>
             <hr/>
 
@@ -482,7 +661,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/03/15/here-is-tyt/">http://callmetyt.github.io/2020/03/15/here-is-tyt/</a>
+                    <a href="http://callmetyt.github.io/2020/06/25/Vue%E5%9F%BA%E7%A1%80/">http://callmetyt.github.io/2020/06/25/Vue%E5%9F%BA%E7%A1%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -558,30 +737,81 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/03/22/javascript-variable/">
+                <a href="/2020/06/25/Vue%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="javascript-variable">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Vue基础">
                         
-                        <span class="card-title">javascript-variable</span>
+                        <span class="card-title">Vue基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            大佬出的思考题(关于JavaScript变量环境)，做了之后感觉对之前学习的东西有了一个很好的运用练习，所以在此重新整理下。
-思考题1问题是判断下列代码的输出：首先编译阶段，JS引擎构建全局上下文，第一个var showName变量提升，并
+                            准备开始历史angular 2009年
+react 2013年
+vue 2014年，(尤雨溪)中国人创建，现在美籍
+框架和库库(小而精)
+
+jQuery库 -&gt; DOM操作+请求
+art-template -&gt; 模板引擎
+
+框架
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-22
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            tyt
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/16/RCE%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="RCE命令注入">
+                        
+                        <span class="card-title">RCE命令注入</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简单学习命令注入后利用CTFHUB的靶场进行更进一步的学习!
+第一题 无过滤
+非常典型的一个ping指令，如果用户输入不加以过滤，就会导致命令注入（本题没有任何过滤）```shell
+
+127.0.0.1|ls
+利用命令管道符进行连续的命令
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -593,51 +823,14 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
                     </a>
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/RCE/">
+                        <span class="chip bg-color">RCE</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/03/15/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-15
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            tyt
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
