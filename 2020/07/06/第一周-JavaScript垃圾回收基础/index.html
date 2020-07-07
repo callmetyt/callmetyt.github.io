@@ -426,9 +426,17 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -457,7 +465,60 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><ul>
+<li>JavaScript 中的内存管理是自动执行的，而且是不可见的</li>
+<li>我们创建基本类型、对象、函数……所有这些都需要内存</li>
+</ul>
+<p>当不再需要某样东西（内存）时会发生什么? JavaScript 引擎是如何发现并清理它?</p>
+<h1 id="垃圾回收原则"><a href="#垃圾回收原则" class="headerlink" title="垃圾回收原则"></a>垃圾回收原则</h1><h2 id="可达性"><a href="#可达性" class="headerlink" title="可达性"></a>可达性</h2><ul>
+<li>JavaScript 中内存管理的主要概念是可达性——<strong>那些以某种方式可访问或可用的值，它们被保证存储在内存中</strong></li>
+<li><strong>JavaScript 引擎中有一个后台进程称为垃圾回收器，它监视所有对象，并删除那些不可访问的对象</strong></li>
+</ul>
+<h3 id="根"><a href="#根" class="headerlink" title="根"></a>根</h3><p>一组基本的固有可达值，由于显而易见的原因无法删除，如：</p>
+<ul>
+<li>本地函数的局部变量和参数</li>
+<li>当前嵌套调用链上的其他函数和参数</li>
+<li>全局变量</li>
+<li>还有一些其他的、内部的</li>
+</ul>
+<p><strong>这些值称为根</strong></p>
+<h3 id="可访问"><a href="#可访问" class="headerlink" title="可访问"></a>可访问</h3><p><strong>如果引用或引用链可以从根访问任何其他值，则认为该值是可访问的</strong></p>
+<h2 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> user <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span><span class="token string">'john'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p><img src="1.png" alt="简单引用数据"></p>
+<ul>
+<li>这里存在一个对象引用</li>
+<li>如果 user 的值被覆盖，则引用丢失</li>
+</ul>
+<pre class=" language-javascript"><code class="language-javascript">user <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span></code></pre>
+<p><img src="2.png" alt="不可达数据"></p>
+<p><strong>现在 John 变成不可达的状态，没有办法访问它，没有对它的引用。垃圾回收器将丢弃 John 数据并释放内存</strong></p>
+<h2 id="相互关联"><a href="#相互关联" class="headerlink" title="相互关联"></a>相互关联</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> marry <span class="token punctuation">(</span>man<span class="token punctuation">,</span> woman<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  woman<span class="token punctuation">.</span>husban <span class="token operator">=</span> man<span class="token punctuation">;</span>
+  man<span class="token punctuation">.</span>wife <span class="token operator">=</span> woman<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    father<span class="token punctuation">:</span> man<span class="token punctuation">,</span>
+    mother<span class="token punctuation">:</span> woman
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> family <span class="token operator">=</span> <span class="token function">marry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">"John"</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">"Ann"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<p>内存结构：</p>
+<p><img src="3.png" alt="内存结构"></p>
+<p>现在删除两个引用</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">delete</span> family<span class="token punctuation">.</span>father<span class="token punctuation">;</span>
+<span class="token keyword">delete</span> family<span class="token punctuation">.</span>mother<span class="token punctuation">.</span>husband<span class="token punctuation">;</span></code></pre>
+<p><img src="4.png" alt="内存结构"></p>
+<p><strong>输出引用无关紧要</strong>。只有传入的对象才能使对象可访问，因此，John 现在是不可访问的，并将从内存中删除所有不可访问的数据</p>
+<p>垃圾回收之后：</p>
+<p><img src="5.png" alt="内存结构"></p>
+
             </div>
             <hr/>
 
@@ -482,7 +543,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-%E5%88%9D%E8%A7%81JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">http://callmetyt.github.io/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-%E5%88%9D%E8%A7%81JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</a>
+                    <a href="http://callmetyt.github.io/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%9F%BA%E7%A1%80/">http://callmetyt.github.io/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%9F%BA%E7%A1%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -519,7 +580,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                    <span class="chip bg-color">前端</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -558,10 +627,9 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-%E5%88%9D%E8%A7%81JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
                     <div class="card-image">
@@ -579,9 +647,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-06
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-06
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -590,7 +658,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -601,24 +668,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/06/%E7%AC%AC%E4%B8%80%E5%91%A8-JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%9F%BA%E7%A1%80/">
+                <a href="/2020/06/25/Vue%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="第一周_初见JavaScript垃圾回收">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Vue基础">
                         
-                        <span class="card-title">第一周_初见JavaScript垃圾回收</span>
+                        <span class="card-title">Vue基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            当不再需要某样东西（内存）时会发生什么? JavaScript 引擎是如何发现并清理它?
+                            准备开始历史angular 2009年
+react 2013年
+vue 2014年，(尤雨溪)中国人创建，现在美籍
+框架和库库(小而精)
+
+jQuery库 -&gt; DOM操作+请求
+art-template -&gt; 模板引擎
+
+框架
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-25
                             </span>
                         <span class="publish-author">
                             
@@ -631,12 +706,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
-                    </a>
-                    
                     <a href="/tags/%E5%89%8D%E7%AB%AF/">
                         <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
                     </a>
                     
                 </div>
