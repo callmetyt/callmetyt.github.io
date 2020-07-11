@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第一周-防抖和节流函数, callmetyt">
+    <meta name="keywords" content="第一周-Vue基础2, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第一周-防抖和节流函数 | callmetyt</title>
+    <title>第一周-Vue基础2 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第一周-防抖和节流函数</h1>
+                    <h1 class="description center-align post-title">第一周-Vue基础2</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +428,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JavaScript/">
-                                <span class="chip bg-color">JavaScript</span>
-                            </a>
-                        
                             <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                 <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                            <a href="/tags/Vue/">
+                                <span class="chip bg-color">Vue</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-10
+                    2020-07-11
                 </div>
                 
 
@@ -465,165 +465,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
-    <span class="token selector"><span class="token class">.container</span> </span><span class="token punctuation">{</span>
-        <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-        <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>
-        <span class="token property">background-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
-        <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-        <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>
-        <span class="token property">color</span><span class="token punctuation">:</span> white<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
-    window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">let</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">".container"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        container<span class="token punctuation">.</span>onmousemove <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            container<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> count<span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
-<ul>
-<li>鼠标滑过div时，内部的数值会不断增大（大约300）</li>
-<li>说明事件处理函数执行了300多次<ul>
-<li><strong>如果时较为复杂的函数或者时Ajax请求，会让浏览器运行速度急剧下滑甚至奔溃或者服务器崩溃</strong></li>
-</ul>
+                <h1 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h1><h2 id="官方图"><a href="#官方图" class="headerlink" title="官方图"></a>官方图</h2><p><a href="https://cn.vuejs.org/v2/guide/instance.html#生命周期图示" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA</a></p>
+<h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><p>组件创建之前，<strong>Vue 实例已经创建，但是内部 data 之类的数据并没有创建完成</strong></p>
+<p>可以访问 this 但是无法访问  this.msg(假设 msg 是data中的数据)</p>
+<h3 id="created"><a href="#created" class="headerlink" title="created"></a>created</h3><p>组件创建之后</p>
+<p><strong>使用该组件时，就会调用 created 方法</strong></p>
+<p>在这个方法中可以操作后端数据</p>
+<p>发起 ajax 请求</p>
+<h2 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h2><h3 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h3><p>挂载数据到 DOM 之前会调用(虚拟DOM)</p>
+<h3 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h3><p>挂载数据到 DOM之后会调用 操作DOM</p>
+<h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><p>DOM 数据更新之前</p>
+<h3 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h3><p>DOM 数据更新之后</p>
+<h2 id="destroy"><a href="#destroy" class="headerlink" title="destroy"></a>destroy</h2><h3 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h3><p>组件销毁之前</p>
+<h3 id="destroyed"><a href="#destroyed" class="headerlink" title="destroyed"></a>destroyed</h3><p>组件销毁之后，再次使用组件会创新创建</p>
+<h2 id="activated-keep-alive"><a href="#activated-keep-alive" class="headerlink" title="activated(keep-alive)"></a>activated(keep-alive)</h2><p>对于由 keep-alive 标签包围的元素，进行销毁时，不会销毁，而是暂存起来</p>
+<p>这样不会花费过大的开销，同时保存组件的运行状态</p>
+<p>实现操作是将 DOM 树删除，但是虚拟 DOM 保存下来</p>
+<h3 id="activated"><a href="#activated" class="headerlink" title="activated"></a>activated</h3><p>激活组件时，调用</p>
+<h3 id="deactivated"><a href="#deactivated" class="headerlink" title="deactivated"></a>deactivated</h3><p>暂停组件时，调用</p>
+<h1 id="组件的数据传递-复杂"><a href="#组件的数据传递-复杂" class="headerlink" title="组件的数据传递(复杂)"></a>组件的数据传递(复杂)</h1><h2 id="多层嵌套1-attrs-listen-最常用"><a href="#多层嵌套1-attrs-listen-最常用" class="headerlink" title="多层嵌套1($attrs,$listen) //最常用"></a>多层嵌套1($attrs,$listen) //最常用</h2><h3 id="父组件-→-子组件"><a href="#父组件-→-子组件" class="headerlink" title="父组件 → 子组件"></a>父组件 → 子组件</h3><ol>
+<li>父组件中为子组件<strong>绑定自定义属性传递值</strong>，并且使用 v-bind=’$attrs’(注意是等号)</li>
+<li>子组件使用 <strong>props 接收值</strong>，使用 $attrs.<strong>属性名</strong>使用</li>
+<li>后续组件只需 v-bind=’$attrs’，然后使用 $attrs.属性</li>
+<li>实际上 $attrs 是 props 的集合</li>
+</ol>
+<h3 id="子组件-→-父组件"><a href="#子组件-→-父组件" class="headerlink" title="子组件 → 父组件"></a>子组件 → 父组件</h3><ol>
+<li>父组件中为<strong>子组件创建自定义事件</strong>， 绑定事件监听 v-on=’$listeners’(注意是等号) ，子组件使用 $emit 触发</li>
+<li>自定义事件中处理父组件的数据</li>
+<li>前代组件只需在子组件中绑定事件监听 v-on=’$listeners’，然后触发事件就可</li>
+</ol>
+<h2 id="不是父子关系-中央事件总线"><a href="#不是父子关系-中央事件总线" class="headerlink" title="不是父子关系( 中央事件总线)"></a>不是父子关系( 中央事件总线)</h2><ol>
+<li><p>new 一个全局Vue对象</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> bus<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">;</span></code></pre>
 </li>
-</ul>
-<p>存在以下两种解决方案：<strong>防抖和节流</strong></p>
-<h1 id="工具库"><a href="#工具库" class="headerlink" title="工具库"></a>工具库</h1><ul>
-<li><p>underscore</p>
-<p>一个JavaScript实用库，提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象</p>
-<ul>
-<li>内置了防抖函数（debounce）和节流函数（throttle）</li>
-<li>中文文档 <a href="https://www.html.cn/doc/underscore/" target="_blank" rel="noopener">https://www.html.cn/doc/underscore/</a></li>
-</ul>
+<li><p>在被传递的组件中</p>
+<pre class=" language-javascript"><code class="language-javascript">bus<span class="token punctuation">.</span><span class="token function">$on</span><span class="token punctuation">(</span><span class="token string">'eventName'</span><span class="token punctuation">,</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token operator">=</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>xxx<span class="token operator">=</span>val
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//val是要传递的值，this.xxx是要接受的值</span></code></pre>
+<p>此处利用了ES6的箭头函数的特殊作用，this直接从外部继承，换成普通函数会出错</p>
 </li>
+<li><p>在提供传递值的组件中</p>
+<pre class=" language-javascript"><code class="language-javascript">bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'eventName'</span><span class="token punctuation">,</span>待传递的值<span class="token punctuation">)</span></code></pre>
+<h1 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h1></li>
+</ol>
+<p>当Vue对象内部的值发生变化时，页面上的对应的视图也会发生变化，体现了Vue重要思想</p>
+<p><strong>数据驱动视图</strong></p>
+<h2 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h2><ul>
+<li>Model(数据模型)：实际上是从数据库中取出来的数据</li>
+<li>View(视图)：html网页</li>
+<li>Controller(控制器)：一些中间件，例如：node中的express，php，java等</li>
 </ul>
-<h1 id="防抖函数"><a href="#防抖函数" class="headerlink" title="防抖函数"></a>防抖函数</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ul>
-<li><p><strong>事件响应函数在一段时间后才执行，如果在这段时间内再次调用，则重新计算等待事件</strong></p>
-<ul>
-<li><p>执行方式一</p>
-<p>时间结束后，如果在这段时间内没有调用则执行</p>
-</li>
-<li><p>执行方式二</p>
-<p>立即执行，直到时间结束这段时间内没有调用，则下一次继续立即执行</p>
-</li>
+<p><strong>数据不是主动地到视图上的，它是靠控制器从数据库取到Model展示到View，这就是MVC</strong></p>
+<h2 id="MVVM设计模式"><a href="#MVVM设计模式" class="headerlink" title="MVVM设计模式"></a>MVVM设计模式</h2><ul>
+<li>Model 类似是Vue对象中data属性</li>
+<li>View还是html</li>
+<li>ViewModel则是html中模板语法标记的地方，由Vue抽象出来</li>
 </ul>
-</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> wait<span class="token punctuation">,</span> immediate<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//func为事件触发函数，wait是等待时间，immediate是否立即执行</span>
-    <span class="token keyword">let</span> timer<span class="token comment" spellcheck="true">//声明事件队列标识符</span>
-    <span class="token keyword">let</span> debounced <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> args <span class="token operator">=</span> arguments<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存参数</span>
-        <span class="token keyword">let</span> context <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存上下文环境</span>
-        <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//清除事件队列</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>immediate<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">let</span> callNow <span class="token operator">=</span> <span class="token operator">!</span>timer<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//标记是否立即执行</span>
-            <span class="token comment" spellcheck="true">/*
-            1.timer是undefined，则事件第一次执行或者等待时间已经过去
-            2.timer不是undefined，则等待时间没过，需要重新计时
-            */</span>
-            timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-                timer <span class="token operator">=</span> undefined
-            <span class="token punctuation">}</span><span class="token punctuation">,</span> wait<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//添加事件队列</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>callNow<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                func<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                func<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
-            <span class="token punctuation">}</span><span class="token punctuation">,</span> wait<span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true">//添加事件队列</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-    debounced<span class="token punctuation">.</span>cancel <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span>
-        timer <span class="token operator">=</span> <span class="token keyword">null</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//提供防抖取消操作</span>
-    <span class="token keyword">return</span> debounced<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//返回防抖函数</span>
-<span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p>解析：</p>
-<ul>
-<li>利用JavaScript事件队列的特性<ul>
-<li><strong>永远保证事件队列中只有一个异步操作或者标识符（针对一个事件）</strong></li>
-<li>则每一次触发事件都先清除定时器（去除事件队列中的异步操作）</li>
-</ul>
-</li>
-</ul>
-<h2 id="适用"><a href="#适用" class="headerlink" title="适用"></a>适用</h2><ul>
-<li>scroll事件</li>
-<li>搜索框输入查询</li>
-<li>表单验证</li>
-<li>按钮提交</li>
-<li>浏览器的resize事件</li>
-</ul>
-<h1 id="节流函数"><a href="#节流函数" class="headerlink" title="节流函数"></a>节流函数</h1><h2 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h2><ul>
-<li><strong>如果你持续触发事件，每隔一段时间，只执行一次事件</strong><ul>
-<li>事件触发立即执行，同时有结尾事件</li>
-<li>事件触发立即执行，无结尾事件</li>
-<li>事件不立即执行，有结尾事件</li>
-<li>事件不立即执行，无结尾事件，<strong>但是无法达成</strong> （TODO：研究下）</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">throttle</span><span class="token punctuation">(</span>func<span class="token punctuation">,</span> wait<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> timer<span class="token punctuation">,</span>
-        old <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">let</span> context <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存上下文</span>
-        <span class="token keyword">let</span> args <span class="token operator">=</span> arguments<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存参数</span>
-        <span class="token comment" spellcheck="true">//时间戳写法</span>
-        <span class="token comment" spellcheck="true">//效果是事件立即执行，没有结尾事件</span>
-        <span class="token keyword">let</span> now <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存当前时间</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>leading <span class="token operator">===</span> <span class="token boolean">false</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>old<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            old <span class="token operator">=</span> now<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token comment" spellcheck="true">//决定事件是否立即执行</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">-</span> old <span class="token operator">></span> wait<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>timer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timer<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                timer <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token comment" spellcheck="true">//防止事件重复执行,影响定时器写法</span>
-            func<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            old <span class="token operator">=</span> now<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//刷新时间</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">//定时器写法</span>
-        <span class="token comment" spellcheck="true">//效果是事件不立即执行，有结尾事件</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>timer <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span>trailing <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-                old <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//防止事件重复执行，影响时间戳写法</span>
-                func<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                timer <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token punctuation">,</span> wait<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<ul>
-<li>options中两个选项<ul>
-<li>leading 布尔值，是否立即执行事件</li>
-<li>trailing 布尔值，是否添加结尾事件</li>
-</ul>
-</li>
-<li><strong>定时器写法和时间戳写法都可以做到函数节流，只是开始和结尾效果不同，这里是结合两者的改良型</strong></li>
-</ul>
-<h2 id="适用-1"><a href="#适用-1" class="headerlink" title="适用"></a>适用</h2><ul>
-<li>DOM元素的拖拽功能实现</li>
-<li>射击游戏类</li>
-<li>计算鼠标移动距离</li>
-<li>监听scroll滚动</li>
-</ul>
-<h1 id="防抖与节流的区别"><a href="#防抖与节流的区别" class="headerlink" title="防抖与节流的区别"></a>防抖与节流的区别</h1><p>例如：监听scroll滚动事件</p>
-<ul>
-<li><strong>防抖函数会让滚动事件在用户结束滚动后执行</strong></li>
-<li><strong>节流函数会让用户在滚动的过程中隔一段时间就执行</strong></li>
-</ul>
+<p>控制器只需要解决路由问题</p>
+<p><strong>数据驱动视图</strong>这就是MVVM</p>
 
             </div>
             <hr/>
@@ -649,7 +548,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/10/%E7%AC%AC%E4%B8%80%E5%91%A8-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0/">http://callmetyt.github.io/2020/07/10/%E7%AC%AC%E4%B8%80%E5%91%A8-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0/</a>
+                    <a href="http://callmetyt.github.io/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/">http://callmetyt.github.io/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -687,12 +586,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JavaScript/">
-                                    <span class="chip bg-color">JavaScript</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                     <span class="chip bg-color">前端</span>
+                                </a>
+                            
+                                <a href="/tags/Vue/">
+                                    <span class="chip bg-color">Vue</span>
                                 </a>
                             
                         </div>
@@ -733,9 +632,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/">
                     <div class="card-image">
@@ -753,9 +653,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -764,6 +664,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -786,24 +687,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/08/%E7%AC%AC%E4%B8%80%E5%91%A8-%E5%88%9D%E8%A7%81JavaScript%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+                <a href="/2020/07/10/%E7%AC%AC%E4%B8%80%E5%91%A8-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="第一周_初见JavaScript垃圾回收">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="第一周-防抖和节流函数">
                         
-                        <span class="card-title">第一周_初见JavaScript垃圾回收</span>
+                        <span class="card-title">第一周-防抖和节流函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            当不再需要某样东西（内存）时会发生什么? JavaScript 引擎是如何发现并清理它?
+                            JavaScript中的高阶函数学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-10
                             </span>
                         <span class="publish-author">
                             
