@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第一周-Vue基础2, callmetyt">
+    <meta name="keywords" content="第二周-ES6-class学习, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第一周-Vue基础2 | callmetyt</title>
+    <title>第二周-ES6-class学习 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第一周-Vue基础2</h1>
+                    <h1 class="description center-align post-title">第二周-ES6-class学习</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +428,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
                             <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                 <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/Vue/">
-                                <span class="chip bg-color">Vue</span>
+                            <a href="/tags/ES6/">
+                                <span class="chip bg-color">ES6</span>
                             </a>
                         
                     </div>
@@ -448,7 +452,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-11
+                    2020-07-14
                 </div>
                 
 
@@ -465,64 +469,121 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h1><h2 id="官方图"><a href="#官方图" class="headerlink" title="官方图"></a>官方图</h2><p><a href="https://cn.vuejs.org/v2/guide/instance.html#生命周期图示" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA</a></p>
-<h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><p>组件创建之前，<strong>Vue 实例已经创建，但是内部 data 之类的数据并没有创建完成</strong></p>
-<p>可以访问 this 但是无法访问  this.msg(假设 msg 是data中的数据)</p>
-<h3 id="created"><a href="#created" class="headerlink" title="created"></a>created</h3><p>组件创建之后</p>
-<p><strong>使用该组件时，就会调用 created 方法</strong></p>
-<p>在这个方法中可以操作后端数据</p>
-<p>发起 ajax 请求</p>
-<h2 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h2><h3 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h3><p>挂载数据到 DOM 之前会调用(虚拟DOM)</p>
-<h3 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h3><p>挂载数据到 DOM之后会调用 操作DOM</p>
-<h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><p>DOM 数据更新之前</p>
-<h3 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h3><p>DOM 数据更新之后</p>
-<h2 id="destroy"><a href="#destroy" class="headerlink" title="destroy"></a>destroy</h2><h3 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h3><p>组件销毁之前</p>
-<h3 id="destroyed"><a href="#destroyed" class="headerlink" title="destroyed"></a>destroyed</h3><p>组件销毁之后，再次使用组件会创新创建</p>
-<h2 id="activated-keep-alive"><a href="#activated-keep-alive" class="headerlink" title="activated(keep-alive)"></a>activated(keep-alive)</h2><p>对于由 keep-alive 标签包围的元素，进行销毁时，不会销毁，而是暂存起来</p>
-<p>这样不会花费过大的开销，同时保存组件的运行状态</p>
-<p>实现操作是将 DOM 树删除，但是虚拟 DOM 保存下来</p>
-<h3 id="activated"><a href="#activated" class="headerlink" title="activated"></a>activated</h3><p>激活组件时，调用</p>
-<h3 id="deactivated"><a href="#deactivated" class="headerlink" title="deactivated"></a>deactivated</h3><p>暂停组件时，调用</p>
-<h1 id="组件的数据传递-复杂"><a href="#组件的数据传递-复杂" class="headerlink" title="组件的数据传递(复杂)"></a>组件的数据传递(复杂)</h1><h2 id="多层嵌套1-attrs-listen-最常用"><a href="#多层嵌套1-attrs-listen-最常用" class="headerlink" title="多层嵌套1($attrs,$listen) //最常用"></a>多层嵌套1($attrs,$listen) //最常用</h2><h3 id="父组件-→-子组件"><a href="#父组件-→-子组件" class="headerlink" title="父组件 → 子组件"></a>父组件 → 子组件</h3><ol>
-<li>父组件中为子组件<strong>绑定自定义属性传递值</strong>，并且使用 v-bind=’$attrs’(注意是等号)</li>
-<li>子组件使用 <strong>props 接收值</strong>，使用 $attrs.<strong>属性名</strong>使用</li>
-<li>后续组件只需 v-bind=’$attrs’，然后使用 $attrs.属性</li>
-<li>实际上 $attrs 是 props 的集合</li>
+                <h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Test1</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//构造函数,如果没有显示声明，会自动生成</span>
+    <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//成员函数</span>
+<span class="token punctuation">}</span></code></pre>
+<ol>
+<li>本质上是ES5的语法糖</li>
+<li>必须用 new 实例化</li>
 </ol>
-<h3 id="子组件-→-父组件"><a href="#子组件-→-父组件" class="headerlink" title="子组件 → 父组件"></a>子组件 → 父组件</h3><ol>
-<li>父组件中为<strong>子组件创建自定义事件</strong>， 绑定事件监听 v-on=’$listeners’(注意是等号) ，子组件使用 $emit 触发</li>
-<li>自定义事件中处理父组件的数据</li>
-<li>前代组件只需在子组件中绑定事件监听 v-on=’$listeners’，然后触发事件就可</li>
-</ol>
-<h2 id="不是父子关系-中央事件总线"><a href="#不是父子关系-中央事件总线" class="headerlink" title="不是父子关系( 中央事件总线)"></a>不是父子关系( 中央事件总线)</h2><ol>
-<li><p>new 一个全局Vue对象</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> bus<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">;</span></code></pre>
+<h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><ul>
+<li><p>在 constructor 中书写</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 </li>
-<li><p>在被传递的组件中</p>
-<pre class=" language-javascript"><code class="language-javascript">bus<span class="token punctuation">.</span><span class="token function">$on</span><span class="token punctuation">(</span><span class="token string">'eventName'</span><span class="token punctuation">,</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token operator">=</span><span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>xxx<span class="token operator">=</span>val
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//val是要传递的值，this.xxx是要接受的值</span></code></pre>
-<p>此处利用了ES6的箭头函数的特殊作用，this直接从外部继承，换成普通函数会出错</p>
+<li><p>类的顶层书写（推荐）</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
+    a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 </li>
-<li><p>在提供传递值的组件中</p>
-<pre class=" language-javascript"><code class="language-javascript">bus<span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'eventName'</span><span class="token punctuation">,</span>待传递的值<span class="token punctuation">)</span></code></pre>
-<h1 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h1></li>
+</ul>
+<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> Myclass <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token class-name">Me</span> <span class="token punctuation">{</span>
+    <span class="token function">getname</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"name!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> t3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Myclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+t3<span class="token punctuation">.</span><span class="token function">getname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正常</span>
+<span class="token comment" spellcheck="true">// Me.getname();//报错</span></code></pre>
+<ol>
+<li>类的内部一直是严格模式(ES6 实际上把整个语言升级到了严格模式)</li>
+<li>不存在变量提升</li>
+<li>内部使用Generator时，在函数名前加*</li>
+<li>注意this的执行问题，最好使用箭头函数</li>
 </ol>
-<p>当Vue对象内部的值发生变化时，页面上的对应的视图也会发生变化，体现了Vue重要思想</p>
-<p><strong>数据驱动视图</strong></p>
-<h2 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h2><ul>
-<li>Model(数据模型)：实际上是从数据库中取出来的数据</li>
-<li>View(视图)：html网页</li>
-<li>Controller(控制器)：一些中间件，例如：node中的express，php，java等</li>
+<h2 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h2><ul>
+<li>静态函数：函数名前加 static，只能在类上调用，可以继承</li>
+<li>静态属性：直接在类外部定义（老方法），属性名前加 static（新方法！）</li>
 </ul>
-<p><strong>数据不是主动地到视图上的，它是靠控制器从数据库取到Model展示到View，这就是MVC</strong></p>
-<h2 id="MVVM设计模式"><a href="#MVVM设计模式" class="headerlink" title="MVVM设计模式"></a>MVVM设计模式</h2><ul>
-<li>Model 类似是Vue对象中data属性</li>
-<li>View还是html</li>
-<li>ViewModel则是html中模板语法标记的地方，由Vue抽象出来</li>
+<h2 id="new-target"><a href="#new-target" class="headerlink" title="new.target"></a>new.target</h2><ul>
+<li>该属性一般用在构造函数之中，返回<code>new</code>命令作用于的那个构造函数</li>
+<li>如果构造函数不是通过<code>new</code>命令或<code>Reflect.construct()</code>调用的，<code>new.target</code>会返回<code>undefined</code>，<strong>因此这个属性可以用来确定构造函数是怎么调用的</strong></li>
+<li>子类继承父类时，<code>new.target</code>会返回子类</li>
 </ul>
-<p>控制器只需要解决路由问题</p>
-<p><strong>数据驱动视图</strong>这就是MVVM</p>
+<h1 id="class-继承"><a href="#class-继承" class="headerlink" title="class 继承"></a>class 继承</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Class 可以通过<code>extends</code>关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span class="token comment" spellcheck="true">//ColorPoint 继承了 Point</span></code></pre>
+<p>定义了一个<code>ColorPoint</code>类，该类通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法</p>
+<h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><ul>
+<li><strong>子类必须在<code>constructor</code>方法中调用<code>super</code>方法</strong>，否则新建实例时会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法</li>
+<li>如果不调用<code>super</code>方法，子类就得不到<code>this</code>对象</li>
+<li>ES6 要求，子类的构造函数必须执行一次<code>super</code>函数</li>
+<li>作为函数时，<strong><code>super()</code>只能用在子类的构造函数之中</strong>，用在其他地方就会报错</li>
+</ul>
+<p>实质存在：</p>
+<p><strong>super代表了父类的构造函数，但是返回的是子类的实例</strong></p>
+<p>相当于<code>父类.prototype.constructor.call(this)</code></p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> color<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ReferenceError</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//调用父类的构造函数</span>
+    <span class="token comment" spellcheck="true">//相当于 Point.prototype.constructor.call(this,x,y)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正确</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
+<li>在普通方法中，指向父类的原型对象</li>
+<li>在静态方法中，指向父类</li>
+</ul>
+<p>ES6 规定，在<strong>子类普通方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类实例</strong></p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//父类的实例属性x</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//子类的实例属性x</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//super指向父类但是使用的this指向子类</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+b<span class="token punctuation">.</span><span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 2</span></code></pre>
+<h3 id="与ES5的区别"><a href="#与ES5的区别" class="headerlink" title="与ES5的区别"></a>与ES5的区别</h3><ul>
+<li>ES5：实质是先创造子类的实例对象<code>this</code>，然后再将父类的方法添加到<code>this</code>上面（<code>Parent.apply(this)</code>）</li>
+<li>ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到<code>this</code>上面（所以必须先调用<code>super</code>方法），然后再用子类的构造函数修改<code>this</code></li>
+</ul>
+<h2 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h2><ul>
+<li>可以用来从子类上获取父类</li>
+<li>可以使用这个方法判断，一个类是否继承了另一个类</li>
+</ul>
+<h2 id="prototype-和-proto"><a href="#prototype-和-proto" class="headerlink" title="prototype 和 _proto_"></a>prototype 和 _<em>proto_</em></h2><p>（1）子类的<code>__proto__</code>属性，表示构造函数的继承，总是指向父类。</p>
+<p>（2）子类<code>prototype</code>属性的<code>__proto__</code>属性，表示方法的继承，总是指向父类的<code>prototype</code>属性。</p>
 
             </div>
             <hr/>
@@ -548,7 +609,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/">http://callmetyt.github.io/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/</a>
+                    <a href="http://callmetyt.github.io/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/">http://callmetyt.github.io/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -586,12 +647,16 @@
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
                                 <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                     <span class="chip bg-color">前端</span>
                                 </a>
                             
-                                <a href="/tags/Vue/">
-                                    <span class="chip bg-color">Vue</span>
+                                <a href="/tags/ES6/">
+                                    <span class="chip bg-color">ES6</span>
                                 </a>
                             
                         </div>
@@ -632,9 +697,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/">
                     <div class="card-image">
@@ -652,9 +718,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -663,6 +729,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -689,24 +756,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/10/%E7%AC%AC%E4%B8%80%E5%91%A8-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0/">
+                <a href="/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="第一周-防抖和节流函数">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="第一周-Vue基础2">
                         
-                        <span class="card-title">第一周-防抖和节流函数</span>
+                        <span class="card-title">第一周-Vue基础2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            JavaScript中的高阶函数学习
+                            生命周期、复杂组件的数据传递和Vue框架开发的思想
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-11
                             </span>
                         <span class="publish-author">
                             
@@ -719,12 +786,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
-                    </a>
-                    
                     <a href="/tags/%E5%89%8D%E7%AB%AF/">
                         <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
                     </a>
                     
                 </div>
