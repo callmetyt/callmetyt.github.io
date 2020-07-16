@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第二周-ES6-class学习, callmetyt">
+    <meta name="keywords" content="第二周-VueRouter基础, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第二周-ES6-class学习 | callmetyt</title>
+    <title>第二周-VueRouter基础 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第二周-ES6-class学习</h1>
+                    <h1 class="description center-align post-title">第二周-VueRouter基础</h1>
                 </div>
             </div>
         </div>
@@ -428,16 +428,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JavaScript/">
-                                <span class="chip bg-color">JavaScript</span>
-                            </a>
-                        
                             <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                 <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/ES6/">
-                                <span class="chip bg-color">ES6</span>
+                            <a href="/tags/Vue/">
+                                <span class="chip bg-color">Vue</span>
                             </a>
                         
                     </div>
@@ -452,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-14
+                    2020-07-16
                 </div>
                 
 
@@ -469,121 +465,115 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Test1</span> <span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//构造函数,如果没有显示声明，会自动生成</span>
-    <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"hello!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//成员函数</span>
-<span class="token punctuation">}</span></code></pre>
-<ol>
-<li>本质上是ES5的语法糖</li>
-<li>必须用 new 实例化</li>
+                <h1 id="路由实现"><a href="#路由实现" class="headerlink" title="路由实现"></a>路由实现</h1><ol>
+<li><p>传统开发方式是 url 改变后，立刻发生请求响应整个页面，有可能资源过多，传统开发会让页面出现白屏</p>
+</li>
+<li><p><strong>SPA 单页面应用 Single Page Application</strong></p>
+<p>锚点值改变后不会立刻发送请求，在某个合适的时机，发起 ajax 请求，页面局部渲染</p>
+<p>页面不立刻跳转，用户体验好，</p>
+<p>Vue angular React</p>
+</li>
 </ol>
-<h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><ul>
-<li><p>在 constructor 中书写</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>前提得有Vue</li>
+<li>直接 npm install vue-router</li>
+</ol>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><ol>
+<li>先引入 vue.js</li>
+<li>在引入 vue-router.js</li>
+</ol>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ol>
+<li><p>在Vue上加载VueRouter</p>
+<pre class=" language-javascript"><code class="language-javascript">Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Router<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>注意，如果Vue和VueRouter处于全局作用域，则不需要这一步，因为VueRouter源码，最后有一句</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>inBrowser <span class="token operator">&amp;&amp;</span> window<span class="token punctuation">.</span>Vue<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    windows<span class="token punctuation">.</span>Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueRouter<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 </li>
-<li><p>类的顶层书写（推荐）</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
-    a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<li><p>创建并配置router对象</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> router<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            path<span class="token punctuation">:</span><span class="token string">'/xxx'</span><span class="token punctuation">,</span>
+            component<span class="token punctuation">:</span>xxx <span class="token comment" spellcheck="true">//注意没有s</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li><p>挂载到 Vue 实例化对象上</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+    el<span class="token punctuation">:</span><span class="token operator">...</span><span class="token punctuation">,</span>
+    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">``</span></span><span class="token punctuation">,</span>
+    router <span class="token comment" spellcheck="true">//ES6简写</span>
 <span class="token punctuation">}</span></code></pre>
 </li>
-</ul>
-<h2 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> Myclass <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token class-name">Me</span> <span class="token punctuation">{</span>
-    <span class="token function">getname</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"name!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> t3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Myclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-t3<span class="token punctuation">.</span><span class="token function">getname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//正常</span>
-<span class="token comment" spellcheck="true">// Me.getname();//报错</span></code></pre>
-<ol>
-<li>类的内部一直是严格模式(ES6 实际上把整个语言升级到了严格模式)</li>
-<li>不存在变量提升</li>
-<li>内部使用Generator时，在函数名前加*</li>
-<li>注意this的执行问题，最好使用箭头函数</li>
 </ol>
-<h2 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h2><ul>
-<li>静态函数：函数名前加 static，只能在类上调用，可以继承</li>
-<li>静态属性：直接在类外部定义（老方法），属性名前加 static（新方法！）</li>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>引入 vue-router 模块，会抛出两个全剧组件</p>
+<ul>
+<li>router-link 可以代替 a 标签，内部的 to 属性 代替 a标签的herf，是组件的入口</li>
+<li>router-view 是组件匹配的出口</li>
 </ul>
-<h2 id="new-target"><a href="#new-target" class="headerlink" title="new.target"></a>new.target</h2><ul>
-<li>该属性一般用在构造函数之中，返回<code>new</code>命令作用于的那个构造函数</li>
-<li>如果构造函数不是通过<code>new</code>命令或<code>Reflect.construct()</code>调用的，<code>new.target</code>会返回<code>undefined</code>，<strong>因此这个属性可以用来确定构造函数是怎么调用的</strong></li>
-<li>子类继承父类时，<code>new.target</code>会返回子类</li>
-</ul>
-<h1 id="class-继承"><a href="#class-继承" class="headerlink" title="class 继承"></a>class 继承</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Class 可以通过<code>extends</code>关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-<span class="token punctuation">}</span><span class="token comment" spellcheck="true">//ColorPoint 继承了 Point</span></code></pre>
-<p>定义了一个<code>ColorPoint</code>类，该类通过<code>extends</code>关键字，继承了<code>Point</code>类的所有属性和方法</p>
-<h2 id="super"><a href="#super" class="headerlink" title="super"></a>super</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><ul>
-<li><strong>子类必须在<code>constructor</code>方法中调用<code>super</code>方法</strong>，否则新建实例时会报错。这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法</li>
-<li>如果不调用<code>super</code>方法，子类就得不到<code>this</code>对象</li>
-<li>ES6 要求，子类的构造函数必须执行一次<code>super</code>函数</li>
-<li>作为函数时，<strong><code>super()</code>只能用在子类的构造函数之中</strong>，用在其他地方就会报错</li>
-</ul>
-<p>实质存在：</p>
-<p><strong>super代表了父类的构造函数，但是返回的是子类的实例</strong></p>
-<p>相当于<code>父类.prototype.constructor.call(this)</code></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> color<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ReferenceError</span>
-    <span class="token keyword">super</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//调用父类的构造函数</span>
-    <span class="token comment" spellcheck="true">//相当于 Point.prototype.constructor.call(this,x,y)</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正确</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
-<li>在普通方法中，指向父类的原型对象</li>
-<li>在静态方法中，指向父类</li>
-</ul>
-<p>ES6 规定，在<strong>子类普通方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类实例</strong></p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//父类的实例属性x</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//子类的实例属性x</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//super指向父类但是使用的this指向子类</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-b<span class="token punctuation">.</span><span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 2</span></code></pre>
-<h3 id="与ES5的区别"><a href="#与ES5的区别" class="headerlink" title="与ES5的区别"></a>与ES5的区别</h3><ul>
-<li>ES5：实质是先创造子类的实例对象<code>this</code>，然后再将父类的方法添加到<code>this</code>上面（<code>Parent.apply(this)</code>）</li>
-<li>ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到<code>this</code>上面（所以必须先调用<code>super</code>方法），然后再用子类的构造函数修改<code>this</code></li>
-</ul>
-<h2 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h2><ul>
-<li>可以用来从子类上获取父类</li>
-<li>可以使用这个方法判断，一个类是否继承了另一个类</li>
-</ul>
-<h2 id="prototype-和-proto"><a href="#prototype-和-proto" class="headerlink" title="prototype 和 _proto_"></a>prototype 和 _<em>proto_</em></h2><p>（1）子类的<code>__proto__</code>属性，表示构造函数的继承，总是指向父类。</p>
-<p>（2）子类<code>prototype</code>属性的<code>__proto__</code>属性，表示方法的继承，总是指向父类的<code>prototype</code>属性。</p>
+</li>
+<li><p>使用组件</p>
+<pre class=" language-html"><code class="language-html"><span class="token comment" spellcheck="true">&lt;!-- 路由入口 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/xxx<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/xxx<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- 路由出口 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">></span></span></code></pre>
+</li>
+</ol>
+<h1 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h1><h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>在路由配置处，进行配置</p>
+<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span><span class="token string">'/abc'</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span><span class="token string">'abc'</span><span class="token punctuation">,</span>
+        component<span class="token punctuation">:</span>abc
+    <span class="token punctuation">}</span>
+<span class="token punctuation">]</span></code></pre>
+</li>
+<li><p>在组件中使用</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>abc<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span></code></pre>
+<p>注意</p>
+<ol>
+<li>使用绑定属性 :to=”{name:’abc’}”,也就是 v-bind:to=”{name:’abc’}”</li>
+<li>注意内部的格式 “{name:’abc’}”</li>
+</ol>
+</li>
+</ol>
+<h1 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h1><h2 id="路由范式"><a href="#路由范式" class="headerlink" title="路由范式"></a>路由范式</h2><ol>
+<li>xxx.html#/user/1 params 动态路由参数</li>
+<li>xxx.html#/user?userId=1 query 查询</li>
+</ol>
+<h2 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>修改路由配置</p>
+<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span><span class="token string">'/user/:id'</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span><span class="token string">'userP'</span><span class="token punctuation">,</span>
+        component<span class="token punctuation">:</span>UserParams
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//动态路由参数</span>
+    <span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span><span class="token string">'/user'</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span><span class="token string">'userQ'</span><span class="token punctuation">,</span>
+        component<span class="token punctuation">:</span>UserQuery
+    <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//query查询</span>
+<span class="token punctuation">]</span></code></pre>
+</li>
+<li><p>组件中使用</p>
+<pre class=" language-html"><code class="language-html">// 动态路由参数
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>userP<span class="token punctuation">'</span>,params:{id:1}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
+// query查询
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>userQ<span class="token punctuation">'</span>,query:{userId:2}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span></code></pre>
+</li>
+</ol>
+<h2 id="router-route"><a href="#router-route" class="headerlink" title="$router $route"></a>$router $route</h2><p>当组件创建之后就会出现这两个对象</p>
+<p>可以在路由组件中使用</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">this</span><span class="token punctuation">.</span>$router <span class="token comment" spellcheck="true">//就是VueRouter对象</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$route <span class="token comment" spellcheck="true">//路由的配置信息</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>params<span class="token punctuation">.</span>xx <span class="token comment" spellcheck="true">//访问动态路由参数，从而修改或者发送信息</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>query<span class="token punctuation">.</span>xx <span class="token comment" spellcheck="true">//访问 query查询</span></code></pre>
 
             </div>
             <hr/>
@@ -609,7 +599,7 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/">http://callmetyt.github.io/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/</a>
+                    <a href="http://callmetyt.github.io/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/">http://callmetyt.github.io/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -647,16 +637,12 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JavaScript/">
-                                    <span class="chip bg-color">JavaScript</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                     <span class="chip bg-color">前端</span>
                                 </a>
                             
-                                <a href="/tags/ES6/">
-                                    <span class="chip bg-color">ES6</span>
+                                <a href="/tags/Vue/">
+                                    <span class="chip bg-color">Vue</span>
                                 </a>
                             
                         </div>
@@ -697,9 +683,10 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
@@ -717,9 +704,9 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -728,6 +715,7 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -750,24 +738,24 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/11/%E7%AC%AC%E4%B8%80%E5%91%A8-Vue%E5%9F%BA%E7%A1%802/">
+                <a href="/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="第一周-Vue基础2">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="第二周-ES6-class学习">
                         
-                        <span class="card-title">第一周-Vue基础2</span>
+                        <span class="card-title">第二周-ES6-class学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            生命周期、复杂组件的数据传递和Vue框架开发的思想
+                            ES6的class简单学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-14
                             </span>
                         <span class="publish-author">
                             
@@ -780,12 +768,16 @@ b<span class="token punctuation">.</span><span class="token function">m</span><s
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
+                    </a>
+                    
                     <a href="/tags/%E5%89%8D%E7%AB%AF/">
                         <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
+                    <a href="/tags/ES6/">
+                        <span class="chip bg-color">ES6</span>
                     </a>
                     
                 </div>
