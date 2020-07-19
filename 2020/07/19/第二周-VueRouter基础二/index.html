@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第二周-VueRouter基础, callmetyt">
+    <meta name="keywords" content="第二周-VueRouter基础二, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第二周-VueRouter基础 | callmetyt</title>
+    <title>第二周-VueRouter基础二 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第二周-VueRouter基础</h1>
+                    <h1 class="description center-align post-title">第二周-VueRouter基础二</h1>
                 </div>
             </div>
         </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-16
+                    2020-07-19
                 </div>
                 
 
@@ -465,115 +465,87 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="路由实现"><a href="#路由实现" class="headerlink" title="路由实现"></a>路由实现</h1><ol>
-<li><p>传统开发方式是 url 改变后，立刻发生请求响应整个页面，有可能资源过多，传统开发会让页面出现白屏</p>
+                <h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><ol>
+<li><p>使用路由参数</p>
 </li>
-<li><p><strong>SPA 单页面应用 Single Page Application</strong></p>
-<p>锚点值改变后不会立刻发送请求，在某个合适的时机，发起 ajax 请求，页面局部渲染</p>
-<p>页面不立刻跳转，用户体验好，</p>
-<p>Vue angular React</p>
-</li>
-</ol>
-<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li>前提得有Vue</li>
-<li>直接 npm install vue-router</li>
-</ol>
-<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><ol>
-<li>先引入 vue.js</li>
-<li>在引入 vue-router.js</li>
-</ol>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ol>
-<li><p>在Vue上加载VueRouter</p>
-<pre class=" language-javascript"><code class="language-javascript">Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Router<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>注意，如果Vue和VueRouter处于全局作用域，则不需要这一步，因为VueRouter源码，最后有一句</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>inBrowser <span class="token operator">&amp;&amp;</span> window<span class="token punctuation">.</span>Vue<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    windows<span class="token punctuation">.</span>Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueRouter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li><p>在组件内部使用 watch 监听路由参数的变化</p>
+<pre class=" language-javascript"><code class="language-javascript">watch<span class="token punctuation">;</span><span class="token punctuation">{</span>
+    <span class="token function">$route</span><span class="token punctuation">(</span>newV<span class="token punctuation">,</span>oldV<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//判断路由参数的变化</span>
+        newV<span class="token punctuation">.</span>params <span class="token operator">||</span> newV<span class="token punctuation">.</span>query
+        <span class="token comment" spellcheck="true">//然后对组件数据做出修改</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 </li>
-<li><p>创建并配置router对象</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> router<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
+</ol>
+<h1 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h1><h2 id="多组件"><a href="#多组件" class="headerlink" title="多组件"></a>多组件</h2><ol>
+<li><p>父路由配置</p>
+<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
+    path<span class="token punctuation">:</span><span class="token string">'/father'</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span><span class="token string">'father'</span><span class="token punctuation">,</span>
+    component<span class="token punctuation">:</span>Father<span class="token punctuation">,</span>
+    children<span class="token punctuation">:</span><span class="token punctuation">[</span>
         <span class="token punctuation">{</span>
-            path<span class="token punctuation">:</span><span class="token string">'/xxx'</span><span class="token punctuation">,</span>
-            component<span class="token punctuation">:</span>xxx <span class="token comment" spellcheck="true">//注意没有s</span>
+            path<span class="token punctuation">:</span><span class="token string">'/father/a'</span><span class="token punctuation">,</span>
+            name<span class="token punctuation">:</span><span class="token string">'a'</span><span class="token punctuation">,</span>
+            component<span class="token punctuation">:</span>A
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            path<span class="token punctuation">:</span><span class="token string">'/father/b'</span><span class="token punctuation">,</span>
+            name<span class="token punctuation">:</span><span class="token string">'b'</span><span class="token punctuation">,</span>
+            component<span class="token punctuation">:</span>B
         <span class="token punctuation">}</span>
     <span class="token punctuation">]</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
-</li>
-<li><p>挂载到 Vue 实例化对象上</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
-    el<span class="token punctuation">:</span><span class="token operator">...</span><span class="token punctuation">,</span>
-    template<span class="token punctuation">:</span><span class="token template-string"><span class="token string">``</span></span><span class="token punctuation">,</span>
-    router <span class="token comment" spellcheck="true">//ES6简写</span>
-<span class="token punctuation">}</span></code></pre>
-</li>
-</ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
-<li><p>引入 vue-router 模块，会抛出两个全剧组件</p>
-<ul>
-<li>router-link 可以代替 a 标签，内部的 to 属性 代替 a标签的herf，是组件的入口</li>
-<li>router-view 是组件匹配的出口</li>
-</ul>
-</li>
-<li><p>使用组件</p>
-<pre class=" language-html"><code class="language-html"><span class="token comment" spellcheck="true">&lt;!-- 路由入口 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/xxx<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/xxx<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
-<span class="token comment" spellcheck="true">&lt;!-- 路由出口 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">></span></span></code></pre>
-</li>
-</ol>
-<h1 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h1><h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><ol>
-<li><p>在路由配置处，进行配置</p>
-<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        path<span class="token punctuation">:</span><span class="token string">'/abc'</span><span class="token punctuation">,</span>
-        name<span class="token punctuation">:</span><span class="token string">'abc'</span><span class="token punctuation">,</span>
-        component<span class="token punctuation">:</span>abc
-    <span class="token punctuation">}</span>
-<span class="token punctuation">]</span></code></pre>
-</li>
-<li><p>在组件中使用</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>abc<span class="token punctuation">'</span>}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span></code></pre>
-<p>注意</p>
-<ol>
-<li>使用绑定属性 :to=”{name:’abc’}”,也就是 v-bind:to=”{name:’abc’}”</li>
-<li>注意内部的格式 “{name:’abc’}”</li>
-</ol>
-</li>
-</ol>
-<h1 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h1><h2 id="路由范式"><a href="#路由范式" class="headerlink" title="路由范式"></a>路由范式</h2><ol>
-<li>xxx.html#/user/1 params 动态路由参数</li>
-<li>xxx.html#/user?userId=1 query 查询</li>
-</ol>
-<h2 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h2><ol>
-<li><p>修改路由配置</p>
-<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        path<span class="token punctuation">:</span><span class="token string">'/user/:id'</span><span class="token punctuation">,</span>
-        name<span class="token punctuation">:</span><span class="token string">'userP'</span><span class="token punctuation">,</span>
-        component<span class="token punctuation">:</span>UserParams
-    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//动态路由参数</span>
-    <span class="token punctuation">{</span>
-        path<span class="token punctuation">:</span><span class="token string">'/user'</span><span class="token punctuation">,</span>
-        name<span class="token punctuation">:</span><span class="token string">'userQ'</span><span class="token punctuation">,</span>
-        component<span class="token punctuation">:</span>UserQuery
-    <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//query查询</span>
 <span class="token punctuation">]</span></code></pre>
 </li>
 <li><p>组件中使用</p>
-<pre class=" language-html"><code class="language-html">// 动态路由参数
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>userP<span class="token punctuation">'</span>,params:{id:1}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
-// query查询
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">:to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{name:<span class="token punctuation">'</span>userQ<span class="token punctuation">'</span>,query:{userId:2}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span></code></pre>
 </li>
 </ol>
-<h2 id="router-route"><a href="#router-route" class="headerlink" title="$router $route"></a>$router $route</h2><p>当组件创建之后就会出现这两个对象</p>
-<p>可以在路由组件中使用</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">this</span><span class="token punctuation">.</span>$router <span class="token comment" spellcheck="true">//就是VueRouter对象</span>
-<span class="token keyword">this</span><span class="token punctuation">.</span>$route <span class="token comment" spellcheck="true">//路由的配置信息</span>
-<span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>params<span class="token punctuation">.</span>xx <span class="token comment" spellcheck="true">//访问动态路由参数，从而修改或者发送信息</span>
-<span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>query<span class="token punctuation">.</span>xx <span class="token comment" spellcheck="true">//访问 query查询</span></code></pre>
+<h1 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a>keep-alive</h1><p>路由切换组件时，会自动销毁</p>
+<p>如果不想被销毁，则可以利用 keep-alive 标签包围起来，而挂载到缓存当中</p>
+<p>详见 生命周期的 active</p>
+<h1 id="权限路由"><a href="#权限路由" class="headerlink" title="权限路由"></a>权限路由</h1><h2 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h2><p>在路由配置当中，meta 属性可以标记信息</p>
+<pre class=" language-javascript"><code class="language-javascript">route<span class="token punctuation">:</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span><span class="token string">'/a'</span><span class="token punctuation">,</span>
+        name<span class="token punctuation">:</span><span class="token string">'a'</span><span class="token punctuation">,</span>
+        component<span class="token punctuation">:</span>A<span class="token punctuation">,</span>
+        meta<span class="token punctuation">:</span><span class="token punctuation">{</span>
+            mark<span class="token punctuation">;</span><span class="token string">'ha'</span> <span class="token comment" spellcheck="true">//声明元信息</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">]</span></code></pre>
+<h2 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h2><p>路由对象.beforeEach 函数会在路由切换时调用</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> router<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+router<span class="token punctuation">.</span><span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//to是要切换到的路由</span>
+    <span class="token comment" spellcheck="true">//from是来自哪个路由</span>
+    <span class="token comment" spellcheck="true">//next是一个方法，必须在函数内被调用</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<p>函数内部对路由元信息进行判断，然后调用 next 决定导向</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>to<span class="token punctuation">.</span>meta<span class="token punctuation">.</span>xxx<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//...</span>
+    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        path<span class="token punctuation">:</span>'要前往的路由
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//不加参数，则前往默认的路由</span>
+<span class="token punctuation">}</span></code></pre>
+<h1 id="导航完成之前获取数据"><a href="#导航完成之前获取数据" class="headerlink" title="导航完成之前获取数据"></a>导航完成之前获取数据</h1><h2 id="beforeRouteEnter"><a href="#beforeRouteEnter" class="headerlink" title="beforeRouteEnter"></a>beforeRouteEnter</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteEnter</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//在渲染该组件的对应路由被 confirm 前调用</span>
+    <span class="token comment" spellcheck="true">//不能！！获取组件实例 this</span>
+    <span class="token comment" spellcheck="true">//因为该首位执行前，组件实例还没被创建</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="beforeRouteUpdate"><a href="#beforeRouteUpdate" class="headerlink" title="beforeRouteUpdate"></a>beforeRouteUpdate</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteUpdate</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//在当前路由改变，但是该组件被复用时调用</span>
+    <span class="token comment" spellcheck="true">//渲染同样的组件时，实例将会复用</span>
+    <span class="token comment" spellcheck="true">//可以访问组件实例 this</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="beforeRouteLeave"><a href="#beforeRouteLeave" class="headerlink" title="beforeRouteLeave"></a>beforeRouteLeave</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteLeave</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span>next<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//导航离开该组件的对应路由时调用</span>
+    <span class="token comment" spellcheck="true">//可以访问足见实例 this</span>
+<span class="token punctuation">}</span></code></pre>
 
             </div>
             <hr/>
@@ -599,7 +571,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/">http://callmetyt.github.io/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/</a>
+                    <a href="http://callmetyt.github.io/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/">http://callmetyt.github.io/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -683,9 +655,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/">
                     <div class="card-image">
@@ -703,9 +676,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -714,6 +687,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -736,24 +710,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/14/%E7%AC%AC%E4%BA%8C%E5%91%A8-ES6-class%E5%AD%A6%E4%B9%A0/">
+                <a href="/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="第二周-ES6-class学习">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="第二周-VueRouter基础">
                         
-                        <span class="card-title">第二周-ES6-class学习</span>
+                        <span class="card-title">第二周-VueRouter基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ES6的class简单学习
+                            Vue全家桶之一VueRouter的学习（一）
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
                             </span>
                         <span class="publish-author">
                             
@@ -766,16 +740,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
-                    </a>
-                    
                     <a href="/tags/%E5%89%8D%E7%AB%AF/">
                         <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/ES6/">
-                        <span class="chip bg-color">ES6</span>
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
                     </a>
                     
                 </div>
