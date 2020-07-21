@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第二周-VueRouter基础二, callmetyt">
+    <meta name="keywords" content="第三周-JavaScript实现响应式系统, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第二周-VueRouter基础二 | callmetyt</title>
+    <title>第三周-JavaScript实现响应式系统 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第二周-VueRouter基础二</h1>
+                    <h1 class="description center-align post-title">第三周-JavaScript实现响应式系统</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +428,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
                             <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                 <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/Vue/">
-                                <span class="chip bg-color">Vue</span>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/">
+                                <span class="chip bg-color">数据劫持</span>
                             </a>
                         
                     </div>
@@ -448,7 +452,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-19
+                    2020-07-21
                 </div>
                 
 
@@ -465,87 +469,170 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h1><ol>
-<li><p>使用路由参数</p>
+                <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>很多前端 JavaScript 框架（如 Angular、React 和 Vue）都有自己的反应性（Reactivity）引擎</p>
+<h2 id="Vue的响应式框架"><a href="#Vue的响应式框架" class="headerlink" title="Vue的响应式框架"></a>Vue的响应式框架</h2><p>例如（Vue）：</p>
+<p><img src="1.png" alt="image-20200711164057948"></p>
+<ul>
+<li><code>price</code>或者<code>quantity</code>的值发生变动时，<code>Taxes</code>的值也会发生变化<ul>
+<li>更新 Web 页面<code>price</code>的值</li>
+<li>重新计算乘法表达式<code>price * quantity</code>，并更新页面</li>
+<li>再次调用<code>totalPriceWithTax</code>函数并更新页面</li>
+</ul>
 </li>
-<li><p>在组件内部使用 watch 监听路由参数的变化</p>
-<pre class=" language-javascript"><code class="language-javascript">watch<span class="token punctuation">;</span><span class="token punctuation">{</span>
-    <span class="token function">$route</span><span class="token punctuation">(</span>newV<span class="token punctuation">,</span>oldV<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//判断路由参数的变化</span>
-        newV<span class="token punctuation">.</span>params <span class="token operator">||</span> newV<span class="token punctuation">.</span>query
-        <span class="token comment" spellcheck="true">//然后对组件数据做出修改</span>
+</ul>
+<p><strong>这并不是 JavaScript 编程通常的运行方式</strong></p>
+<h2 id="一般的JavaScript代码"><a href="#一般的JavaScript代码" class="headerlink" title="一般的JavaScript代码"></a>一般的JavaScript代码</h2><p>例如</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> price <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> quantity <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> total <span class="token operator">=</span> price <span class="token operator">*</span> quantity<span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//10</span>
+price <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//还是10</span></code></pre>
+<p><strong>JavaScript 是过程性的，并不是反应式的，所以在现实代码并这并不可行</strong></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> data <span class="token operator">=</span> <span class="token punctuation">{</span> price<span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span> quantity<span class="token punctuation">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> target <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//依赖类</span>
+<span class="token keyword">class</span> <span class="token class-name">Dep</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-</li>
-</ol>
-<h1 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h1><h2 id="多组件"><a href="#多组件" class="headerlink" title="多组件"></a>多组件</h2><ol>
-<li><p>父路由配置</p>
-<pre class=" language-javascript"><code class="language-javascript">routes<span class="token punctuation">:</span><span class="token punctuation">[</span>
-    path<span class="token punctuation">:</span><span class="token string">'/father'</span><span class="token punctuation">,</span>
-    name<span class="token punctuation">:</span><span class="token string">'father'</span><span class="token punctuation">,</span>
-    component<span class="token punctuation">:</span>Father<span class="token punctuation">,</span>
-    children<span class="token punctuation">:</span><span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-            path<span class="token punctuation">:</span><span class="token string">'/father/a'</span><span class="token punctuation">,</span>
-            name<span class="token punctuation">:</span><span class="token string">'a'</span><span class="token punctuation">,</span>
-            component<span class="token punctuation">:</span>A
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-            path<span class="token punctuation">:</span><span class="token string">'/father/b'</span><span class="token punctuation">,</span>
-            name<span class="token punctuation">:</span><span class="token string">'b'</span><span class="token punctuation">,</span>
-            component<span class="token punctuation">:</span>B
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-<span class="token punctuation">]</span></code></pre>
-</li>
-<li><p>组件中使用</p>
-</li>
-</ol>
-<h1 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a>keep-alive</h1><p>路由切换组件时，会自动销毁</p>
-<p>如果不想被销毁，则可以利用 keep-alive 标签包围起来，而挂载到缓存当中</p>
-<p>详见 生命周期的 active</p>
-<h1 id="权限路由"><a href="#权限路由" class="headerlink" title="权限路由"></a>权限路由</h1><h2 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h2><p>在路由配置当中，meta 属性可以标记信息</p>
-<pre class=" language-javascript"><code class="language-javascript">route<span class="token punctuation">:</span><span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-        path<span class="token punctuation">:</span><span class="token string">'/a'</span><span class="token punctuation">,</span>
-        name<span class="token punctuation">:</span><span class="token string">'a'</span><span class="token punctuation">,</span>
-        component<span class="token punctuation">:</span>A<span class="token punctuation">,</span>
-        meta<span class="token punctuation">:</span><span class="token punctuation">{</span>
-            mark<span class="token punctuation">;</span><span class="token string">'ha'</span> <span class="token comment" spellcheck="true">//声明元信息</span>
+    <span class="token function">depend</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>target <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">]</span></code></pre>
-<h2 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h2><p>路由对象.beforeEach 函数会在路由切换时调用</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> router<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-router<span class="token punctuation">.</span><span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//to是要切换到的路由</span>
-    <span class="token comment" spellcheck="true">//from是来自哪个路由</span>
-    <span class="token comment" spellcheck="true">//next是一个方法，必须在函数内被调用</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
-<p>函数内部对路由元信息进行判断，然后调用 next 决定导向</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>to<span class="token punctuation">.</span>meta<span class="token punctuation">.</span>xxx<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//...</span>
-    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        path<span class="token punctuation">:</span>'要前往的路由
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token function">notify</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>run<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span class="token keyword">else</span><span class="token punctuation">{</span>
-    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//不加参数，则前往默认的路由</span>
+<span class="token comment" spellcheck="true">//为每个元素设置依赖关系</span>
+Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> val <span class="token operator">=</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> dep <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dep<span class="token punctuation">.</span><span class="token function">depend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token keyword">set</span><span class="token punctuation">(</span>newV<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            val <span class="token operator">=</span> newV<span class="token punctuation">;</span>
+            dep<span class="token punctuation">.</span><span class="token function">notify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//观察者函数</span>
+<span class="token keyword">function</span> <span class="token function">watcher</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    target <span class="token operator">=</span> func<span class="token punctuation">;</span>
+    <span class="token function">target</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    target <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">watcher</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    data<span class="token punctuation">.</span>total <span class="token operator">=</span> data<span class="token punctuation">.</span>price <span class="token operator">*</span> data<span class="token punctuation">.</span>quantity<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//依赖函数</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//效果如下</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//10</span>
+data<span class="token punctuation">.</span>price <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//40</span></code></pre>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><h3 id="依赖类"><a href="#依赖类" class="headerlink" title="依赖类"></a>依赖类</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Dep</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//依赖函数数组</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">depend</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>target <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//检测依赖函数</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//添加依赖函数</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">notify</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>subscribers<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>run<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//执行所有依赖函数</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<h1 id="导航完成之前获取数据"><a href="#导航完成之前获取数据" class="headerlink" title="导航完成之前获取数据"></a>导航完成之前获取数据</h1><h2 id="beforeRouteEnter"><a href="#beforeRouteEnter" class="headerlink" title="beforeRouteEnter"></a>beforeRouteEnter</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteEnter</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//在渲染该组件的对应路由被 confirm 前调用</span>
-    <span class="token comment" spellcheck="true">//不能！！获取组件实例 this</span>
-    <span class="token comment" spellcheck="true">//因为该首位执行前，组件实例还没被创建</span>
-<span class="token punctuation">}</span></code></pre>
-<h2 id="beforeRouteUpdate"><a href="#beforeRouteUpdate" class="headerlink" title="beforeRouteUpdate"></a>beforeRouteUpdate</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteUpdate</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">,</span>next<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//在当前路由改变，但是该组件被复用时调用</span>
-    <span class="token comment" spellcheck="true">//渲染同样的组件时，实例将会复用</span>
-    <span class="token comment" spellcheck="true">//可以访问组件实例 this</span>
-<span class="token punctuation">}</span></code></pre>
-<h2 id="beforeRouteLeave"><a href="#beforeRouteLeave" class="headerlink" title="beforeRouteLeave"></a>beforeRouteLeave</h2><pre class=" language-javascript"><code class="language-javascript"><span class="token function">beforeRouteLeave</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span>next<span class="token punctuation">,</span><span class="token keyword">from</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//导航离开该组件的对应路由时调用</span>
-    <span class="token comment" spellcheck="true">//可以访问足见实例 this</span>
-<span class="token punctuation">}</span></code></pre>
+<ul>
+<li>只有一个 subscribers 的实例属性（用来存放依赖函数）</li>
+<li>depend 函数<ul>
+<li>实际书写存放依赖函数的代码</li>
+<li>保证依赖函数只会存放一个且存在</li>
+</ul>
+</li>
+<li>notify 函数<ul>
+<li>根据依赖关系调整所有数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="观察者函数"><a href="#观察者函数" class="headerlink" title="观察者函数"></a>观察者函数</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">watcher</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    target <span class="token operator">=</span> func<span class="token punctuation">;</span>
+    <span class="token function">target</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//执行依赖函数，同时初始化所有依赖关系</span>
+    target <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">watcher</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//数据之间的关系</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<ul>
+<li>执行传入的函数<ul>
+<li>调整数据的值</li>
+<li>同时触发数据的 setter getter<ul>
+<li><strong>初始化依赖关系</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="设置setter-getter-（重点！）"><a href="#设置setter-getter-（重点！）" class="headerlink" title="设置setter getter （重点！）"></a>设置setter getter （重点！）</h3><pre class=" language-javascript"><code class="language-javascript">Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> val <span class="token operator">=</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> dep <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dep<span class="token punctuation">.</span><span class="token function">depend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token keyword">set</span><span class="token punctuation">(</span>newV<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            val <span class="token operator">=</span> newV<span class="token punctuation">;</span>
+            dep<span class="token punctuation">.</span><span class="token function">notify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<ul>
+<li><p>对每一个对象的数据执行回调函数</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> val <span class="token operator">=</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//保存初值</span>
+<span class="token keyword">const</span> dep <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dep</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//生成自己的依赖类</span></code></pre>
+<ul>
+<li><p><strong>注意每一个数据都拥有自己的依赖类</strong></p>
+<p><img src="2.png" alt="image-20200715163827755"></p>
+</li>
+</ul>
+</li>
+<li><p>通过 defineProperty 函数设置setter getter</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    dep<span class="token punctuation">.</span><span class="token function">depend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置依赖关系</span>
+    <span class="token keyword">return</span> val<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//返回初值 getter函数默认行为</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token keyword">set</span><span class="token punctuation">(</span>newV<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    val <span class="token operator">=</span> newV<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//改变初值 之前的val是引用，所以直接更改</span>
+    dep<span class="token punctuation">.</span><span class="token function">notify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//根据依赖关系调整数据</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+</li>
+</ul>
+<h3 id="执行依赖关系"><a href="#执行依赖关系" class="headerlink" title="执行依赖关系"></a>执行依赖关系</h3><p>执行完 watcher函数后，依赖类的分配会是这样的</p>
+<p><img src="3.png" alt="image-20200715164217320"></p>
+<ul>
+<li><strong>price quantity 的依赖类中存在依赖函数，但是total没有依赖函数</strong><ul>
+<li><strong>因为total依赖于price quantity</strong></li>
+<li><strong>price quantity改变，total改变</strong></li>
+<li><strong>total改变，price quantity不变</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>通过watcher函数执行特定依赖函数</li>
+<li>执行特定依赖函数时，访问各个数据</li>
+<li><strong>通过setter getter函数和依赖类（Dep）设置依赖关系</strong></li>
+<li>之后每个数据就拥有了响应式系统</li>
+</ul>
+<h1 id="Vue基本原理"><a href="#Vue基本原理" class="headerlink" title="Vue基本原理"></a>Vue基本原理</h1><p><img src="4.png" alt="image-20200711174219195"></p>
+<ul>
+<li><strong>当然，Vue 底层的处理要更复杂</strong></li>
+</ul>
 
             </div>
             <hr/>
@@ -571,7 +658,7 @@ router<span class="token punctuation">.</span><span class="token function">befor
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/">http://callmetyt.github.io/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/</a>
+                    <a href="http://callmetyt.github.io/2020/07/21/%E7%AC%AC%E4%B8%89%E5%91%A8-JavaScript%E5%AE%9E%E7%8E%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/">http://callmetyt.github.io/2020/07/21/%E7%AC%AC%E4%B8%89%E5%91%A8-JavaScript%E5%AE%9E%E7%8E%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -609,12 +696,16 @@ router<span class="token punctuation">.</span><span class="token function">befor
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
                                 <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                     <span class="chip bg-color">前端</span>
                                 </a>
                             
-                                <a href="/tags/Vue/">
-                                    <span class="chip bg-color">Vue</span>
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/">
+                                    <span class="chip bg-color">数据劫持</span>
                                 </a>
                             
                         </div>
@@ -655,9 +746,10 @@ router<span class="token punctuation">.</span><span class="token function">befor
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/21/%E7%AC%AC%E4%B8%89%E5%91%A8-JavaScript%E5%AE%9E%E7%8E%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
                     <div class="card-image">
@@ -675,9 +767,9 @@ router<span class="token punctuation">.</span><span class="token function">befor
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -686,6 +778,7 @@ router<span class="token punctuation">.</span><span class="token function">befor
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -712,24 +805,24 @@ router<span class="token punctuation">.</span><span class="token function">befor
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/16/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80/">
+                <a href="/2020/07/19/%E7%AC%AC%E4%BA%8C%E5%91%A8-VueRouter%E5%9F%BA%E7%A1%80%E4%BA%8C/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="第二周-VueRouter基础">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="第二周-VueRouter基础二">
                         
-                        <span class="card-title">第二周-VueRouter基础</span>
+                        <span class="card-title">第二周-VueRouter基础二</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Vue全家桶之一VueRouter的学习（一）
+                            VueRouter基础完结
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-19
                             </span>
                         <span class="publish-author">
                             

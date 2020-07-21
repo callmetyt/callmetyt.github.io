@@ -819,11 +819,11 @@ methods<span class="token punctuation">:</span><span class="token punctuation">{
                     <div class="summary block-with-text">
                         
                             简单学习命令注入后利用CTFHUB的靶场进行更进一步的学习!
-第一题 无过滤
-非常典型的一个ping指令，如果用户输入不加以过滤，就会导致命令注入（本题没有任何过滤）```shell
-
+CTFhub 第一题没有过滤 直接注入
 127.0.0.1|ls
-利用命令管道符进行连续的命令
+发现有一个 18xxxx.php
+127.0.0.1|cat 18xxxx.php
+没有回显，使用 base64
                         
                     </div>
                     <div class="publish-info">
