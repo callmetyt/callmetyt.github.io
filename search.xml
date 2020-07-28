@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>第四周-Webpack学习1</title>
+      <link href="/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/"/>
+      <url>/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/</url>
+      
+        <content type="html"><![CDATA[<h1 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h1><p>webpack是一个现代JavaScript应用程序的静态模块打包器。</p><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h3 id="打包对象"><a href="#打包对象" class="headerlink" title="打包对象"></a>打包对象</h3><ul><li>如果不进行配置，<strong>webpack只认识JavaScript</strong></li></ul><h3 id="打包文件"><a href="#打包文件" class="headerlink" title="打包文件"></a>打包文件</h3><ul><li>如果你的项目需要多个js文件就会有以下问题<ul><li><strong>存在非常严重的依赖顺序问题，逻辑多，文件多，项目的复杂度提高</strong></li></ul></li><li>webpack打包就是来解决上述问题的</li></ul><h3 id="打包技能——loader"><a href="#打包技能——loader" class="headerlink" title="打包技能——loader"></a>打包技能——loader</h3><ul><li><strong>高阶语法（ES6），衍生出的第三方语法（typescript）</strong></li><li>这些都是浏览器（或者低版本浏览器）无法理解的</li><li><strong>webpack的loader</strong>可以解决上述问题</li></ul><h3 id="打包技能——plugin"><a href="#打包技能——plugin" class="headerlink" title="打包技能——plugin"></a>打包技能——plugin</h3><ul><li><strong>打包文件时加一些小动作</strong></li><li>可以随时去除</li></ul><h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><ul><li>想要使用独立、封装的对象</li><li>JavaScript作用域有全局和局部（函数）</li></ul><h2 id="创建模块"><a href="#创建模块" class="headerlink" title="创建模块"></a>创建模块</h2><ul><li><p>利用函数作用域和立即执行函数</p><pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'tyt'</span><span class="token punctuation">;</span>    <span class="token keyword">var</span> sex<span class="token operator">=</span><span class="token string">'male'</span><span class="token punctuation">;</span>    <span class="token keyword">function</span> <span class="token function">tell</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>sex<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    window<span class="token punctuation">.</span>myModule<span class="token operator">=</span><span class="token punctuation">{</span>tell<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span></code></pre><ul><li><strong>内部使用闭包保存变量</strong><ul><li><strong>同时变为私有属性（外部无法访问）</strong></li></ul></li><li><strong>接受window参数，并将想要暴露的东西挂载出去</strong></li><li><strong>立即执行函数保证了作用域的封装</strong></li></ul></li></ul><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul><li>作用域封装</li><li>接触耦合</li><li>重用性</li></ul><h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><ul><li>nodejs开启了js全栈大门<ul><li>AMD（异步模块定义） 规范</li><li>Commonjs || CMD 规范<ul><li>两者相似</li><li><strong>commonjs是js在后端语言的规范（nodejs）：模块、文件操作、操作系统底层</strong></li><li>CMD 仅仅是模块定义</li></ul></li><li>UMD 通用模块定义，一种既能兼容 AMD 也兼容 commonjs 还能兼容浏览器环境的万能代码</li><li><strong>ES6 规范（最推荐的方法）</strong></li></ul></li><li>集中包管理的方式<ul><li>bower 只能下载前端的js代码，在下载bootstrap的时候回自动地下载jQuery</li><li>browserify 解决require可以运行在浏览器，组装代码</li><li><strong>webpack 打包工具 主流</strong></li></ul></li></ul><h1 id="webpack的打包利器"><a href="#webpack的打包利器" class="headerlink" title="webpack的打包利器"></a>webpack的打包利器</h1><h2 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h2><ul><li>标准js引入过程中，只能引入js文件</li><li>webpack利用loader可以使其引入其他文件，例如<ul><li>css</li><li>png</li><li>scss</li><li>…</li></ul></li><li>webpack本身并不包含loader，需要按需下载</li><li>可以看做是一个文件加载器</li></ul><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul><li><p>下载</p><pre class=" language-shell"><code class="language-shell">npm install xxx-laoder -S</code></pre></li><li><p>配置（webpack版本不同，配置方式不同）</p></li></ul><h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><ul><li>监听某些事件，在必要时刻发挥作用 例如：<ul><li><code>uglifyjs-webpack-plugin</code>可以将打包好的文件进行压缩（去除注释，空格…）</li></ul></li></ul><h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><ul><li><p>下载</p><pre class=" language-shell"><code class="language-shell">npm install uglifyjs-webpack-plugin -S</code></pre></li><li><p>配置（webpack版本不同，配置方式不同）</p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Webpack </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第三周-Vue源码学习</title>
       <link href="/2020/07/25/%E7%AC%AC%E4%B8%89%E5%91%A8-Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/"/>
       <url>/2020/07/25/%E7%AC%AC%E4%B8%89%E5%91%A8-Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
