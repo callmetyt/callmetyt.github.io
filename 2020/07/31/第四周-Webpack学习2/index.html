@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第四周-Webpack学习1, callmetyt">
+    <meta name="keywords" content="第四周-Webpack学习2, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第四周-Webpack学习1 | callmetyt</title>
+    <title>第四周-Webpack学习2 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第四周-Webpack学习1</h1>
+                    <h1 class="description center-align post-title">第四周-Webpack学习2</h1>
                 </div>
             </div>
         </div>
@@ -432,8 +432,8 @@
                                 <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/Webpack/">
-                                <span class="chip bg-color">Webpack</span>
+                            <a href="/tags/webpack/">
+                                <span class="chip bg-color">webpack</span>
                             </a>
                         
                     </div>
@@ -448,7 +448,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-28
+                    2020-07-31
                 </div>
                 
 
@@ -465,106 +465,137 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h1><p>webpack是一个现代JavaScript应用程序的静态模块打包器。</p>
-<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h3 id="打包对象"><a href="#打包对象" class="headerlink" title="打包对象"></a>打包对象</h3><ul>
-<li>如果不进行配置，<strong>webpack只认识JavaScript</strong></li>
+                <h2 id="内容目录"><a href="#内容目录" class="headerlink" title="内容目录"></a>内容目录</h2><ul>
+<li>babel的用法、原理</li>
+<li>高频plugin的用法</li>
+<li>打包结果、构建过程优化</li>
 </ul>
-<h3 id="打包文件"><a href="#打包文件" class="headerlink" title="打包文件"></a>打包文件</h3><ul>
-<li>如果你的项目需要多个js文件就会有以下问题<ul>
-<li><strong>存在非常严重的依赖顺序问题，逻辑多，文件多，项目的复杂度提高</strong></li>
+<h3 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h3><h4 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h4><ul>
+<li>安装包分类<ul>
+<li><code>babel/core</code>是babel核心</li>
+<li><code>babel/cli</code>可以再命令行运行babel</li>
+<li><code>babel/preset-env</code>是babel的转换规则<ul>
+<li>核心内容是把高版本的JavaScript（ES6）代码转换为低版本的JavaScript（ES5）</li>
 </ul>
 </li>
-<li>webpack打包就是来解决上述问题的</li>
 </ul>
-<h3 id="打包技能——loader"><a href="#打包技能——loader" class="headerlink" title="打包技能——loader"></a>打包技能——loader</h3><ul>
-<li><strong>高阶语法（ES6），衍生出的第三方语法（typescript）</strong></li>
-<li>这些都是浏览器（或者低版本浏览器）无法理解的</li>
-<li><strong>webpack的loader</strong>可以解决上述问题</li>
+</li>
 </ul>
-<h3 id="打包技能——plugin"><a href="#打包技能——plugin" class="headerlink" title="打包技能——plugin"></a>打包技能——plugin</h3><ul>
-<li><strong>打包文件时加一些小动作</strong></li>
-<li>可以随时去除</li>
-</ul>
-<h1 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><ul>
-<li>想要使用独立、封装的对象</li>
-<li>JavaScript作用域有全局和局部（函数）</li>
-</ul>
-<h2 id="创建模块"><a href="#创建模块" class="headerlink" title="创建模块"></a>创建模块</h2><ul>
-<li><p>利用函数作用域和立即执行函数</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">var</span> name<span class="token operator">=</span><span class="token string">'tyt'</span><span class="token punctuation">;</span>
-    <span class="token keyword">var</span> sex<span class="token operator">=</span><span class="token string">'male'</span><span class="token punctuation">;</span>
-    <span class="token keyword">function</span> <span class="token function">tell</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>sex<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    window<span class="token punctuation">.</span>myModule<span class="token operator">=</span><span class="token punctuation">{</span>tell<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span></code></pre>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ul>
+<li><p>命令行形式</p>
+<pre class=" language-shell"><code class="language-shell">babel test.js --presets=@babel/preset-env</code></pre>
+</li>
+<li><p>配置文件形式</p>
 <ul>
-<li><strong>内部使用闭包保存变量</strong><ul>
-<li><strong>同时变为私有属性（外部无法访问）</strong></li>
-</ul>
+<li><p>package.json</p>
+<pre class=" language-json"><code class="language-json">module.exports=<span class="token punctuation">{</span>
+    <span class="token property">"babel"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token property">"presets"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"@babel/presets-env"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 </li>
-<li><strong>接受window参数，并将想要暴露的东西挂载出去</strong></li>
-<li><strong>立即执行函数保证了作用域的封装</strong></li>
-</ul>
+<li><p>babel.config.js（推荐）</p>
+<p>和上面的一样</p>
 </li>
-</ul>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>作用域封装</li>
-<li>接触耦合</li>
-<li>重用性</li>
-</ul>
-<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><ul>
-<li>nodejs开启了js全栈大门<ul>
-<li>AMD（异步模块定义） 规范</li>
-<li>Commonjs || CMD 规范<ul>
-<li>两者相似</li>
-<li><strong>commonjs是js在后端语言的规范（nodejs）：模块、文件操作、操作系统底层</strong></li>
-<li>CMD 仅仅是模块定义</li>
-</ul>
-</li>
-<li>UMD 通用模块定义，一种既能兼容 AMD 也兼容 commonjs 还能兼容浏览器环境的万能代码</li>
-<li><strong>ES6 规范（最推荐的方法）</strong></li>
-</ul>
-</li>
-<li>集中包管理的方式<ul>
-<li>bower 只能下载前端的js代码，在下载bootstrap的时候回自动地下载jQuery</li>
-<li>browserify 解决require可以运行在浏览器，组装代码</li>
-<li><strong>webpack 打包工具 主流</strong></li>
 </ul>
 </li>
 </ul>
-<h1 id="webpack的打包利器"><a href="#webpack的打包利器" class="headerlink" title="webpack的打包利器"></a>webpack的打包利器</h1><h2 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h2><ul>
-<li>标准js引入过程中，只能引入js文件</li>
-<li>webpack利用loader可以使其引入其他文件，例如<ul>
-<li>css</li>
-<li>png</li>
-<li>scss</li>
-<li>…</li>
-</ul>
-</li>
-<li>webpack本身并不包含loader，需要按需下载</li>
-<li>可以看做是一个文件加载器</li>
-</ul>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<h3 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h3><h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><ul>
+<li><p>以HtmlWebpackPlugin（用来处理html文件）为例</p>
+<ul>
 <li><p>下载</p>
-<pre class=" language-shell"><code class="language-shell">npm install xxx-laoder -S</code></pre>
+<pre class=" language-shell"><code class="language-shell">npm install html-webpack-plugin</code></pre>
 </li>
-<li><p>配置（webpack版本不同，配置方式不同）</p>
+<li><p>配置 webpack.config.js</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> HtmlWebPackPlugin<span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-wbepack-plugin'</span><span class="token punctuation">)</span>
+
+module<span class="token punctuation">.</span>exports<span class="token operator">=</span><span class="token punctuation">{</span>
+    plugins<span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token keyword">new</span> <span class="token class-name">HtmlWebPackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        template<span class="token punctuation">:</span><span class="token string">'xxx.html'</span><span class="token punctuation">,</span>
+        filename<span class="token punctuation">:</span><span class="token string">'index.html'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 </li>
 </ul>
-<h2 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h2><ul>
-<li>监听某些事件，在必要时刻发挥作用 例如：<ul>
-<li><code>uglifyjs-webpack-plugin</code>可以将打包好的文件进行压缩（去除注释，空格…）</li>
+</li>
+</ul>
+<h3 id="打包、构建优化"><a href="#打包、构建优化" class="headerlink" title="打包、构建优化"></a>打包、构建优化</h3><ul>
+<li>terser-webpack-plugin<ul>
+<li>从<code>uglifyjs</code>插件中分支出来</li>
+<li>用来优化打包和构建<ul>
+<li>打包和构建两者密不可分</li>
 </ul>
 </li>
 </ul>
-<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><ul>
-<li><p>下载</p>
-<pre class=" language-shell"><code class="language-shell">npm install uglifyjs-webpack-plugin -S</code></pre>
 </li>
-<li><p>配置（webpack版本不同，配置方式不同）</p>
+<li>webpack-bundle-analyzer<ul>
+<li>一款用来可视化webpack打包结果的插件</li>
+<li>用来评估webpack哪里可以进行优化</li>
+</ul>
 </li>
+<li>happy-pack<ul>
+<li>一款用多进程模拟多线程的插件</li>
+</ul>
+</li>
+</ul>
+<h1 id="Tree-shaking"><a href="#Tree-shaking" class="headerlink" title="Tree-shaking"></a>Tree-shaking</h1><h2 id="原意"><a href="#原意" class="headerlink" title="原意"></a>原意</h2><ul>
+<li>前端中的tree-shaking可以理解为<strong>通过工具”摇”我们的JS文件，将其中用不到的代码”摇”掉</strong>，是一个性能优化的范畴<ul>
+<li>webpack 项目中，有一个入口文件，相当于一棵树的主干</li>
+<li>入口文件有很多依赖的模块，相当于树枝</li>
+<li>虽然依赖了某个模块，但其实只使用其中的某些功能</li>
+<li><strong>通过 tree-shaking，将没有使用的模块摇掉，这样来达到删除无用代码的目的</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="DCE"><a href="#DCE" class="headerlink" title="DCE"></a>DCE</h2><ul>
+<li>无用代码消除在广泛存在于传统的编程语言编译器中，编译器可以判断出某些代码根本不影响输出，然后消除这些代码，这个称之为DCE（dead code elimination）<ul>
+<li>Tree-shaking 是 DCE 的一种新的实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
+<li>javascript绝大多数情况需要通过网络进行加载，然后执行</li>
+<li>加载的文件大小越小，整体执行时间更短</li>
+<li><strong>去除无用代码以减少文件体积，对javascript来说更有意义</strong></li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="DEC-消除"><a href="#DEC-消除" class="headerlink" title="DEC 消除"></a>DEC 消除</h3><p>定义：</p>
+<ul>
+<li><strong>代码不会被执行，不可到达</strong></li>
+<li><strong>代码执行的结果不会被用到</strong></li>
+<li><strong>代码只会影响死变量（只写不读）</strong></li>
+</ul>
+<p>传统语言：</p>
+<p>由编译器将Dead Code从AST（抽象语法树）中删除</p>
+<p>JavaScript：</p>
+<p><strong>uglify</strong>完成了javascript的DCE</p>
+<h3 id="Tree-shaking-消除"><a href="#Tree-shaking-消除" class="headerlink" title="Tree-shaking 消除"></a>Tree-shaking 消除</h3><ul>
+<li>基于ES6的模块特性<ul>
+<li>只能作为模块顶层的语句出现</li>
+<li>import 的模块名只能是字符串常量</li>
+<li>import binding 是 immutable的</li>
+<li><strong>依赖关系是确定的，和运行时的状态无关，可以进行可靠的静态分析（从字面量上对代码进行分析），然后进行消除</strong></li>
+</ul>
+</li>
+</ul>
+<p>从而达到了模块消除</p>
+<ul>
+<li>类消除和函数消除<ul>
+<li>函数可以消除</li>
+<li>类无法消除<ul>
+<li>抛出类的js文件存在特殊情况,<strong>内部可能存在对外部修改的代码（不能消除）</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>所以tree-shaking对函数效果较好</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>对于无用代码，无用模块的消除，都是有限的，有条件的</strong></p>
+<h1 id="Webpack是什么"><a href="#Webpack是什么" class="headerlink" title="Webpack是什么"></a>Webpack是什么</h1><ul>
+<li>前端发展的产物</li>
+<li>模块化打包方案</li>
+<li>工程化方案</li>
 </ul>
 
             </div>
@@ -591,7 +622,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/">http://callmetyt.github.io/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/</a>
+                    <a href="http://callmetyt.github.io/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/">http://callmetyt.github.io/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -633,8 +664,8 @@
                                     <span class="chip bg-color">前端</span>
                                 </a>
                             
-                                <a href="/tags/Webpack/">
-                                    <span class="chip bg-color">Webpack</span>
+                                <a href="/tags/webpack/">
+                                    <span class="chip bg-color">webpack</span>
                                 </a>
                             
                         </div>
@@ -675,9 +706,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/">
                     <div class="card-image">
@@ -695,9 +727,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -706,6 +738,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -728,24 +761,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/25/%E7%AC%AC%E4%B8%89%E5%91%A8-Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">
+                <a href="/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="第三周-Vue源码学习">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="第四周-Webpack学习1">
                         
-                        <span class="card-title">第三周-Vue源码学习</span>
+                        <span class="card-title">第四周-Webpack学习1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习JavaScript响应式系统之后，深入学习Vue如此强大的秘密
+                            webpack的最基础的东西
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-28
                             </span>
                         <span class="publish-author">
                             
@@ -762,12 +795,8 @@
                         <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%BA%90%E7%A0%81/">
-                        <span class="chip bg-color">源码</span>
+                    <a href="/tags/Webpack/">
+                        <span class="chip bg-color">Webpack</span>
                     </a>
                     
                 </div>
