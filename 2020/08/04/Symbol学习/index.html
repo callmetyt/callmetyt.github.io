@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="第四周-Webpack学习2, callmetyt">
+    <meta name="keywords" content="Symbol学习, callmetyt">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>第四周-Webpack学习2 | callmetyt</title>
+    <title>Symbol学习 | callmetyt</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -306,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">第四周-Webpack学习2</h1>
+                    <h1 class="description center-align post-title">Symbol学习</h1>
                 </div>
             </div>
         </div>
@@ -428,12 +428,16 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
                             <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                 <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/webpack/">
-                                <span class="chip bg-color">webpack</span>
+                            <a href="/tags/ES6/">
+                                <span class="chip bg-color">ES6</span>
                             </a>
                         
                     </div>
@@ -448,7 +452,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-31
+                    2020-08-04
                 </div>
                 
 
@@ -465,138 +469,90 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="内容目录"><a href="#内容目录" class="headerlink" title="内容目录"></a>内容目录</h2><ul>
-<li>babel的用法、原理</li>
-<li>高频plugin的用法</li>
-<li>打包结果、构建过程优化</li>
+                <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><ul>
+<li>一种新增的<strong>基本数据类型</strong></li>
+<li><strong>表示独一无二的值</strong></li>
 </ul>
-<h3 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h3><h4 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h4><ul>
-<li>安装包分类<ul>
-<li><code>babel/core</code>是babel核心</li>
-<li><code>babel/cli</code>可以再命令行运行babel</li>
-<li><code>babel/preset-env</code>是babel的转换规则<ul>
-<li>核心内容是把高版本的JavaScript（ES6）代码转换为低版本的JavaScript（ES5）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ul>
-<li><p>命令行形式</p>
-<pre class=" language-shell"><code class="language-shell">babel test.js --presets=@babel/preset-env</code></pre>
-</li>
-<li><p>配置文件形式</p>
+<h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><ul>
+<li><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> s<span class="token operator">=</span><span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//Symbol</span></code></pre>
 <ul>
-<li><p>package.json</p>
-<pre class=" language-json"><code class="language-json">module.exports=<span class="token punctuation">{</span>
-    <span class="token property">"babel"</span><span class="token operator">:</span><span class="token punctuation">{</span>
-        <span class="token property">"presets"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"@babel/presets-env"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
+<li><strong>注意不能使用new</strong></li>
+<li>任意两个Symbol永远不相等</li>
+</ul>
+</li>
+<li><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> s<span class="token operator">=</span><span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'tyt'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//Symbol(tyt)</span></code></pre>
+<ul>
+<li><strong>Symbol传入的值只是作为标示值</strong></li>
+<li><strong>传入的任何值都会转换为字符串</strong></li>
+</ul>
+</li>
+<li><p><strong>Symbol不能和任何值进行运算</strong></p>
+<ul>
+<li>可以调用本身的 <strong>toString</strong></li>
+<li>本身代表真值</li>
+<li>可以被取反</li>
+</ul>
+</li>
+</ul>
+<h2 id="属性名"><a href="#属性名" class="headerlink" title="属性名"></a>属性名</h2><h3 id="ES6新增属性名写法"><a href="#ES6新增属性名写法" class="headerlink" title="ES6新增属性名写法"></a>ES6新增属性名写法</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> prop<span class="token operator">=</span><span class="token string">'name'</span>
+<span class="token keyword">const</span> info<span class="token operator">=</span><span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span><span class="token string">'tyt'</span><span class="token comment" spellcheck="true">//常规写法</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> info2<span class="token operator">=</span><span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>prop<span class="token punctuation">]</span><span class="token punctuation">:</span><span class="token string">'tyt'</span><span class="token comment" spellcheck="true">//ES6写法</span>
 <span class="token punctuation">}</span></code></pre>
-</li>
-<li><p>babel.config.js（推荐）</p>
-<p>和上面的一样</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h3><h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><ul>
-<li><p>以HtmlWebpackPlugin（用来处理html文件）为例</p>
 <ul>
-<li><p>下载</p>
-<pre class=" language-shell"><code class="language-shell">npm install html-webpack-plugin</code></pre>
-</li>
-<li><p>配置 webpack.config.js</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">const</span> HtmlWebPackPlugin<span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-wbepack-plugin'</span><span class="token punctuation">)</span>
-
-module<span class="token punctuation">.</span>exports<span class="token operator">=</span><span class="token punctuation">{</span>
-    plugins<span class="token punctuation">:</span><span class="token punctuation">{</span>
-        <span class="token keyword">new</span> <span class="token class-name">HtmlWebPackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-        template<span class="token punctuation">:</span><span class="token string">'xxx.html'</span><span class="token punctuation">,</span>
-        filename<span class="token punctuation">:</span><span class="token string">'index.html'</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
+<li><strong>上面两个info内容完全相同</strong></li>
+<li><strong>Symbol作为属性名要采用上述写法</strong></li>
+</ul>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> s5<span class="token operator">=</span><span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'check'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> test<span class="token operator">=</span><span class="token punctuation">{</span>
+    val<span class="token punctuation">:</span><span class="token string">'123'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>s5<span class="token punctuation">]</span><span class="token punctuation">:</span><span class="token boolean">true</span>
 <span class="token punctuation">}</span></code></pre>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="打包、构建优化"><a href="#打包、构建优化" class="headerlink" title="打包、构建优化"></a>打包、构建优化</h3><ul>
-<li>terser-webpack-plugin<ul>
-<li>从<code>uglifyjs</code>插件中分支出来</li>
-<li>用来优化打包和构建<ul>
-<li>打包和构建两者密不可分</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>webpack-bundle-analyzer<ul>
-<li>一款用来可视化webpack打包结果的插件</li>
-<li>用来评估webpack哪里可以进行优化</li>
-</ul>
-</li>
-<li>happy-pack<ul>
-<li>一款用多进程模拟多线程的插件</li>
-</ul>
-</li>
-</ul>
-<h1 id="Tree-shaking"><a href="#Tree-shaking" class="headerlink" title="Tree-shaking"></a>Tree-shaking</h1><h2 id="原意"><a href="#原意" class="headerlink" title="原意"></a>原意</h2><ul>
-<li>前端中的tree-shaking可以理解为<strong>通过工具”摇”我们的JS文件，将其中用不到的代码”摇”掉</strong>，是一个性能优化的范畴<ul>
-<li>webpack 项目中，有一个入口文件，相当于一棵树的主干</li>
-<li>入口文件有很多依赖的模块，相当于树枝</li>
-<li>虽然依赖了某个模块，但其实只使用其中的某些功能</li>
-<li><strong>通过 tree-shaking，将没有使用的模块摇掉，这样来达到删除无用代码的目的</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="DCE"><a href="#DCE" class="headerlink" title="DCE"></a>DCE</h2><ul>
-<li>无用代码消除在广泛存在于传统的编程语言编译器中，编译器可以判断出某些代码根本不影响输出，然后消除这些代码，这个称之为DCE（dead code elimination）<ul>
-<li>Tree-shaking 是 DCE 的一种新的实现</li>
-</ul>
-</li>
-</ul>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
-<li>javascript绝大多数情况需要通过网络进行加载，然后执行</li>
-<li>加载的文件大小越小，整体执行时间更短</li>
-<li><strong>去除无用代码以减少文件体积，对javascript来说更有意义</strong></li>
-</ul>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="DEC-消除"><a href="#DEC-消除" class="headerlink" title="DEC 消除"></a>DEC 消除</h3><p>定义：</p>
 <ul>
-<li><strong>代码不会被执行，不可到达</strong></li>
-<li><strong>代码执行的结果不会被用到</strong></li>
-<li><strong>代码只会影响死变量（只写不读）</strong></li>
+<li><p>此时 test 对象有了一个 Symbol 属性（独一无二的属性）</p>
+</li>
+<li><p><strong>只能通过下面方法访问</strong></p>
+<pre class=" language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>test<span class="token punctuation">[</span>s5<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//true</span></code></pre>
+</li>
 </ul>
-<p>传统语言：</p>
-<p>由编译器将Dead Code从AST（抽象语法树）中删除</p>
-<p>JavaScript：</p>
-<p><strong>uglify</strong>完成了javascript的DCE</p>
-<h3 id="Tree-shaking-消除"><a href="#Tree-shaking-消除" class="headerlink" title="Tree-shaking 消除"></a>Tree-shaking 消除</h3><ul>
-<li>基于ES6的模块特性<ul>
-<li>只能作为模块顶层的语句出现</li>
-<li>import 的模块名只能是字符串常量</li>
-<li>import binding 是 immutable的</li>
-<li><strong>依赖关系是确定的，和运行时的状态无关，可以进行可靠的静态分析（从字面量上对代码进行分析），然后进行消除</strong></li>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
+<li>Symbol作为属性名无法被下面的方法遍历<ul>
+<li><strong>for in</strong></li>
+<li><strong>Object.keys()</strong></li>
+<li><strong>Object.getOwnPropertyNames()</strong></li>
+<li><strong>JSON.stringify()</strong><ul>
+<li><strong>转换为JSON，不存在Symbol属性</strong></li>
 </ul>
 </li>
 </ul>
-<p>从而达到了模块消除</p>
+</li>
+<li>Symbol属性可用以下方法访问 <ul>
+<li><strong>Object.getOwnPropertySymbols()</strong></li>
+<li><strong>Reflect.ownKeys()</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for"></a>Symbol.for</h3><ul>
+<li><pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">let</span> s1<span class="token operator">=</span>Symbol<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span>
+<span class="token keyword">let</span> s2<span class="token operator">=</span>Symbol<span class="token punctuation">.</span><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token string">'test'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token operator">===</span>s2<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//true</span></code></pre>
 <ul>
-<li>类消除和函数消除<ul>
-<li>函数可以消除</li>
-<li>类无法消除<ul>
-<li>抛出类的js文件存在特殊情况,<strong>内部可能存在对外部修改的代码（不能消除）</strong></li>
+<li><strong>使用此方法会在创建Symbol时，搜索全局，看是否已经创建过</strong><ul>
+<li><strong>若以创建，返回相同的值（此时两者相同）</strong></li>
+<li><strong>若没有，创建一个新的</strong></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p>所以tree-shaking对函数效果较好</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>对于无用代码，无用模块的消除，都是有限的，有条件的</strong></p>
-<h1 id="Webpack是什么"><a href="#Webpack是什么" class="headerlink" title="Webpack是什么"></a>Webpack是什么</h1><ul>
-<li>前端发展的产物</li>
-<li>模块化打包方案</li>
-<li>工程化方案</li>
+<h3 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor"></a>Symbol.keyFor</h3><ul>
+<li><strong>返回使用Symbol.for（）创建的标识值</strong></li>
 </ul>
+<h2 id="ES6内置Symbol值"><a href="#ES6内置Symbol值" class="headerlink" title="ES6内置Symbol值"></a>ES6内置Symbol值</h2><p>详细内容：<a href="https://es6.ruanyifeng.com/#docs/symbol#Symbol-hasInstance" target="_blank" rel="noopener">https://es6.ruanyifeng.com/#docs/symbol#Symbol-hasInstance</a></p>
 
             </div>
             <hr/>
@@ -622,7 +578,7 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://callmetyt.github.io/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/">http://callmetyt.github.io/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/</a>
+                    <a href="http://callmetyt.github.io/2020/08/04/Symbol%E5%AD%A6%E4%B9%A0/">http://callmetyt.github.io/2020/08/04/Symbol%E5%AD%A6%E4%B9%A0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -660,12 +616,16 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
                                 <a href="/tags/%E5%89%8D%E7%AB%AF/">
                                     <span class="chip bg-color">前端</span>
                                 </a>
                             
-                                <a href="/tags/webpack/">
-                                    <span class="chip bg-color">webpack</span>
+                                <a href="/tags/ES6/">
+                                    <span class="chip bg-color">ES6</span>
                                 </a>
                             
                         </div>
@@ -706,9 +666,10 @@ module<span class="token punctuation">.</span>exports<span class="token operator
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/08/04/Symbol%E5%AD%A6%E4%B9%A0/">
                     <div class="card-image">
@@ -726,9 +687,9 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -737,6 +698,7 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -763,24 +725,24 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/28/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A01/">
+                <a href="/2020/07/31/%E7%AC%AC%E5%9B%9B%E5%91%A8-Webpack%E5%AD%A6%E4%B9%A02/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="第四周-Webpack学习1">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="第四周-Webpack学习2">
                         
-                        <span class="card-title">第四周-Webpack学习1</span>
+                        <span class="card-title">第四周-Webpack学习2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            webpack的最基础的东西
+                            webpack深入学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
                             </span>
                         <span class="publish-author">
                             
@@ -797,8 +759,8 @@ module<span class="token punctuation">.</span>exports<span class="token operator
                         <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/Webpack/">
-                        <span class="chip bg-color">Webpack</span>
+                    <a href="/tags/webpack/">
+                        <span class="chip bg-color">webpack</span>
                     </a>
                     
                 </div>
