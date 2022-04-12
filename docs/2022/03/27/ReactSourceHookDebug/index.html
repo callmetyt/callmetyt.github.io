@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ReactSourceHookDebug | CallMeTyt</title><meta name="keywords" content="javascript,React,source"><meta name="author" content="tyt"><meta name="copyright" content="tyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="React源码Debug学习体会——Hook篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactSourceHookDebug">
+<meta property="og:url" content="http://callmetyt.top/2022/03/27/ReactSourceHookDebug/index.html">
+<meta property="og:site_name" content="CallMeTyt">
+<meta property="og:description" content="React源码Debug学习体会——Hook篇">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://callmetyt.top/img/cover_3.webp">
+<meta property="article:published_time" content="2022-03-27T02:51:50.000Z">
+<meta property="article:modified_time" content="2022-04-11T08:23:33.935Z">
+<meta property="article:author" content="tyt">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="source">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://callmetyt.top/img/cover_3.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://callmetyt.top/2022/03/27/ReactSourceHookDebug/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ReactSourceHookDebug',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-11 16:23:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://imgs.aixifan.com/o_1cne9632b14li1lvm14q512i21uf1r.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/cover_3.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">CallMeTyt</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ReactSourceHookDebug</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-27T02:51:50.000Z" title="发表于 2022-03-27 10:51:50">2022-03-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-11T08:23:33.935Z" title="更新于 2022-04-11 16:23:33">2022-04-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/React/">React</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ReactSourceHookDebug"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>React源码版本：<code>17.0.2</code></li>
+<li>Debug Demo 如下：</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Test</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [num, setNum] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;effect!&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">        setNum((prev) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">          return prev + 1;</span></span><br><span class="line"><span class="language-xml">        &#125;);</span></span><br><span class="line"><span class="language-xml">      &#125;&#125;</span></span><br><span class="line"><span class="language-xml">    &gt;</span></span><br><span class="line"><span class="language-xml">      &#123;num&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>本文章记录学习React Hook源码时的一些收获</strong></li>
+</ul>
+<h2 id="Hook流程"><a href="#Hook流程" class="headerlink" title="Hook流程"></a>Hook流程</h2><h3 id="beginWork"><a href="#beginWork" class="headerlink" title="beginWork"></a>beginWork</h3><ul>
+<li>跳过<code>rootContainer</code>的创建，lanes算法初始化等等代码，首先关注<code>&lt;Test /&gt;</code>组件的Fiber初始化，根据DEMO，<strong>此时<code>beginWork</code>已经处理rootFiber并创建了<code>&lt;Test /&gt;</code>组件的Fiber</strong>，现在要对其进行初始化</li>
+</ul>
+<p>此时<code>&lt;Test /&gt;</code>的Fiber（已省略部分属性）</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">tag</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">key</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="comment">/*可以看到webpack处理后的Test函数中的JSX都被jsxDev解析函数包裹*/</span></span><br><span class="line">  <span class="attr">elementType</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">_s</span>();</span><br><span class="line">    <span class="keyword">const</span> [num, setNum] = (<span class="number">0</span>,react__WEBPACK_IMPORTED_MODULE_0__.<span class="property">useState</span>)(<span class="number">0</span>);</span><br><span class="line">    (<span class="number">0</span>,react__WEBPACK_IMPORTED_MODULE_0__.<span class="property">useEffect</span>)(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">debugger</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;effect!&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="comment">/*#__PURE__*/</span>(<span class="number">0</span>,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.<span class="property">jsxDEV</span>)(<span class="string">&quot;button&quot;</span>, &#123;</span><br><span class="line">      <span class="attr">onClick</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">debugger</span>;</span><br><span class="line">        <span class="title function_">setNum</span>(<span class="function"><span class="params">prev</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> prev + <span class="number">1</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">children</span>: num</span><br><span class="line">    &#125;, <span class="built_in">void</span> <span class="number">0</span>, <span class="literal">false</span>, &#123;</span><br><span class="line">      <span class="attr">fileName</span>: _jsxFileName,</span><br><span class="line">      <span class="attr">lineNumber</span>: <span class="number">59</span>,</span><br><span class="line">      <span class="attr">columnNumber</span>: <span class="number">5</span></span><br><span class="line">    &#125;, <span class="literal">undefined</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">type</span>: <span class="function">() =&gt;</span> &#123;<span class="comment">/*webpack处理后的Test函数和elementType一致*/</span>&#125;,</span><br><span class="line">  <span class="attr">stateNode</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">return</span>: &#123;<span class="comment">/*rootFiber*/</span>&#125;,</span><br><span class="line">  <span class="attr">child</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">sibling</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">index</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">ref</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">pendingProps</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">memoizedProps</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">updateQueue</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">memoizedState</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">dependencies</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">mode</span>: <span class="number">8</span>,</span><br><span class="line">  <span class="attr">flags</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">nextEffect</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">firstEffect</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lastEffect</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">alternate</span>: <span class="literal">null</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时的调用栈</p>
+<p><img src="/11.png" alt="1"></p>
+<ul>
+<li>Fiber的tag为2，由如下源码可知，是因为React还不知道是<code>class</code>还是<code>function</code></li>
+</ul>
+<blockquote>
+<p>var IndeterminateComponent &#x3D; 2; <em>&#x2F;&#x2F; Before we know whether it is function or class</em></p>
+</blockquote>
+<h3 id="renderWithHooks"><a href="#renderWithHooks" class="headerlink" title="renderWithHooks"></a>renderWithHooks</h3><ul>
+<li>后续调用函数去专门处理tag为2的组件，以下是React判断组件时<code>class</code>还是<code>function</code>的代码</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="title class_">Component</span>.<span class="property"><span class="keyword">prototype</span></span> &amp;&amp; <span class="keyword">typeof</span> <span class="title class_">Component</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">render</span> === <span class="string">&#x27;function&#x27;</span>)&#123;</span><br><span class="line">    <span class="comment">//是class组件，...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后保存Fiber进行处理</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactCurrentOwner</span>$<span class="number">1.</span>current = workInProgress; <span class="comment">// workInProgress 就是当前处理的Fiber</span></span><br><span class="line">value = <span class="title function_">renderWithHooks</span>(<span class="literal">null</span>, workInProgress, <span class="title class_">Component</span>, props, context, renderLanes);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>之后会调用这个代码，为当前环境设置hook，之后会使用<code>throwError</code>版本覆盖，这也是为什么hook只能在<code>function</code>组件中使用的原因</strong></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactCurrentDispatcher</span>$<span class="number">1.</span>current = <span class="title class_">HooksDispatcherOnMountInDEV</span>;</span><br><span class="line"><span class="comment">// 而HooksDispatchOnMountInDEV则保存了所有React的hook（当然也有update版本）</span></span><br></pre></td></tr></table></figure>
+
+<p>下图为部分hook</p>
+<p><img src="/22.png" alt="22"></p>
+<ul>
+<li>之后调用<code>function</code>组件，执行用户代码，获取<code>child</code></li>
+</ul>
+<p>调用栈如图</p>
+<p><img src="/33.png" alt="33"></p>
+<h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useState源码 省略部分源码</span></span><br><span class="line"><span class="attr">useState</span>: <span class="keyword">function</span> (<span class="params">initialState</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> prevDispatcher = <span class="title class_">ReactCurrentDispatcher</span>$<span class="number">1.</span>current; <span class="comment">// 这里就会获取正常运行的Hook代码</span></span><br><span class="line">    <span class="title class_">ReactCurrentDispatcher</span>$<span class="number">1.</span>current = <span class="title class_">InvalidNestedHooksDispatcherOnMountInDEV</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">mountState</span>(initialState); <span class="comment">// useState主要执行的逻辑</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="title class_">ReactCurrentDispatcher</span>$<span class="number">1.</span>current = prevDispatcher;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接受用户的值作为<code>initialState</code>，并最后调用<code>mountState</code></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mountState 源码</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">mountState</span>(<span class="params">initialState</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> hook = <span class="title function_">mountWorkInProgressHook</span>(); <span class="comment">// 生成hook对象</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> initialState === <span class="string">&#x27;function&#x27;</span>) &#123; <span class="comment">// 如果initialState是函数，就会执行并获取返回值</span></span><br><span class="line">        <span class="comment">// $FlowFixMe: Flow doesn&#x27;t like mixed types</span></span><br><span class="line">        initialState = <span class="title function_">initialState</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    hook.<span class="property">memoizedState</span> = hook.<span class="property">baseState</span> = initialState; <span class="comment">// 获取初始值，并保存（闭包）</span></span><br><span class="line">    <span class="keyword">var</span> queue = hook.<span class="property">queue</span> = &#123;</span><br><span class="line">        <span class="attr">pending</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">dispatch</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">lastRenderedReducer</span>: basicStateReducer, <span class="comment">// 更新函数</span></span><br><span class="line">        <span class="attr">lastRenderedState</span>: initialState</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> dispatch = queue.<span class="property">dispatch</span> = dispatchAction.<span class="title function_">bind</span>(<span class="literal">null</span>, currentlyRenderingFiber$<span class="number">1</span>, queue); <span class="comment">// useState返回的更新函数，已经硬绑定了2个参数</span></span><br><span class="line">    <span class="keyword">return</span> [hook.<span class="property">memoizedState</span>, dispatch]; <span class="comment">// 返回形式，也是为什么使用 const [val,setVal] = useState(0); 的原因</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>首先初始化hook对象，用来保存<code>state</code>数据、调用队列等</p>
+</li>
+<li><p><strong><code>dispatch</code>函数绑定了当前Fiber，并且调用<code>lastRenderedReducer</code>（也就是<code>basicStateReducer</code>），最后进行<code>scheduleUpdateOnFiber</code>（发起调度更新）</strong></p>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 已省略大部分代码</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dispatchAction</span>(<span class="params">fiber, queue, action</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> currentState = queue.<span class="property">lastRenderedState</span>; <span class="comment">// 获取保存的state</span></span><br><span class="line">        <span class="keyword">var</span> eagerState = <span class="title function_">lastRenderedReducer</span>(currentState, action); <span class="comment">// 获取新的state</span></span><br><span class="line">		<span class="comment">// 准备update</span></span><br><span class="line">        update.<span class="property">eagerReducer</span> = lastRenderedReducer;</span><br><span class="line">        update.<span class="property">eagerState</span> = eagerState;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;<span class="comment">// Suppress the error. It will throw again in the render phase.</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="title class_">ReactCurrentDispatcher</span>$<span class="number">1.</span>current = prevDispatcher;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 执行调度更新</span></span><br><span class="line">    <span class="title function_">scheduleUpdateOnFiber</span>(fiber, lane, eventTime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>action</code>是用户传入的函数，以下是<code>lastRenderReducer</code>源码，所以函数内部可以获取之前的state</strong></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">basicStateReducer</span>(<span class="params">state, action</span>) &#123;</span><br><span class="line">  <span class="comment">// $FlowFixMe: Flow doesn&#x27;t like mixed types</span></span><br><span class="line">  <span class="comment">// 如果是函数，就传入之前state并调用，否则直接使用新的state</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> action === <span class="string">&#x27;function&#x27;</span> ? <span class="title function_">action</span>(state) : action;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useEffect源码</span></span><br><span class="line"><span class="attr">useEffect</span>: <span class="keyword">function</span> (<span class="params">create, deps</span>) &#123;</span><br><span class="line">    currentHookNameInDev = <span class="string">&#x27;useEffect&#x27;</span>;</span><br><span class="line">    <span class="title function_">mountHookTypesDev</span>(); <span class="comment">// 添加 hookName 到 hookTpyeDev</span></span><br><span class="line">    <span class="title function_">checkDepsAreArrayDev</span>(deps); <span class="comment">// 检查useEffect的deps格式是否为数组</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">mountEffect</span>(create, deps); <span class="comment">// useEffect的主要逻辑</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>mountEffect</code>检查一下<code>jest</code>会调用下面这个函数，执行逻辑</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">mountEffectImpl</span>(<span class="params">fiberFlags, hookFlags, create, deps</span>) &#123;</span><br><span class="line">    <span class="comment">// create就是用户订阅的effect函数</span></span><br><span class="line">    <span class="keyword">var</span> hook = <span class="title function_">mountWorkInProgressHook</span>(); <span class="comment">// 生成hook对象</span></span><br><span class="line">    <span class="keyword">var</span> nextDeps = deps === <span class="literal">undefined</span> ? <span class="literal">null</span> : deps;</span><br><span class="line">    currentlyRenderingFiber$<span class="number">1.</span>flags |= fiberFlags;</span><br><span class="line">    hook.<span class="property">memoizedState</span> = <span class="title function_">pushEffect</span>(<span class="title class_">HasEffect</span> | hookFlags, create, <span class="literal">undefined</span>, nextDeps);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>hook</code>的<code>memoizedState</code>不同于<code>useState</code>，<code>useEffect</code>会记录当前的<code>create</code>函数、<code>deps</code>依赖数据和调用顺序</li>
+</ul>
+<h3 id="commitRoot"><a href="#commitRoot" class="headerlink" title="commitRoot"></a>commitRoot</h3><ul>
+<li><code>commitRoot</code>在执行挂载真正DOM树的操作之前还会执行一个额外的程序</li>
+</ul>
+<blockquote>
+<p>invokeGuardedCallback(null, commitBeforeMutationEffects, null);</p>
+</blockquote>
+<ul>
+<li><p><strong><code>invokeGuardedCallback</code>是React中用于<code>DEV</code>环境下触发事件的，附带有各种错误捕获和消息提示</strong></p>
+</li>
+<li><p>在经过一系列我看不懂的调用之后，会执行<code>flushPassiveEffects</code>函数，在这个函数内部会执行用户定义的<code>effect函数</code></p>
+</li>
+</ul>
+<p>此时的调用栈</p>
+<p><img src="/44.png" alt="44"></p>
+<h3 id="commitBeforeMutationEffects"><a href="#commitBeforeMutationEffects" class="headerlink" title="commitBeforeMutationEffects"></a>commitBeforeMutationEffects</h3><ul>
+<li>经过测试后，debug操作不同，下面<code>flushPassiveEffects</code>函数调用时机不同，这里看得很迷（应该是不懂React详细更新算法和逻辑的问题）<ul>
+<li>单步进入，<code>flushPassiveEffects</code>函数会在<code>commitBeforeMutationEffects</code>函数中直接执行</li>
+<li>单步跳过<code>commitBeforeMutationEffects</code>，会在React渲染完成之后单独执行</li>
+</ul>
+</li>
+</ul>
+<h4 id="flushPassiveEffects"><a href="#flushPassiveEffects" class="headerlink" title="flushPassiveEffects"></a>flushPassiveEffects</h4><ul>
+<li>省略了其他代码（例如：这里还处理了<code>unMountEffects</code>，只不过没有执行）</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mountEffects = pendingPassiveHookEffectsMount; <span class="comment">// 这里是收集到的effects，并且实在mount阶段执行的effects</span></span><br><span class="line">pendingPassiveHookEffectsMount = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> _i = <span class="number">0</span>; _i &lt; mountEffects.<span class="property">length</span>; _i += <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="comment">// effects数组每两个一组，前一个是effects，后一个是当前effects对应的fiber</span></span><br><span class="line">    <span class="keyword">var</span> _effect2 = mountEffects[_i];</span><br><span class="line">    <span class="keyword">var</span> _fiber = mountEffects[_i + <span class="number">1</span>];</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="title function_">setCurrentFiber</span>(_fiber); <span class="comment">// 设置当前环境fiber</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 使用invokePassiveEffectCreate执行effects函数</span></span><br><span class="line">            <span class="title function_">invokeGuardedCallback</span>(<span class="literal">null</span>, invokePassiveEffectCreate, <span class="literal">null</span>, _effect2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_">hasCaughtError</span>()) &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">resetCurrentFiber</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数最后还会调用下面这个函数，这样会去清除<code>syncQueue</code>队列内部的更新事件，这也是为什么如果在<code>useEffect</code>中设置<code>state</code>会导致无限更新的原因</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">flushSyncCallbackQueue</span>(); </span><br><span class="line"><span class="comment">// 这个函数内部会调用flushSyncCallbackQueue()</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="invokePassiveEffectCreate"><a href="#invokePassiveEffectCreate" class="headerlink" title="invokePassiveEffectCreate"></a>invokePassiveEffectCreate</h4><ul>
+<li>真正执行<code>effects</code>函数的代码</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">invokePassiveEffectCreate</span>(<span class="params">effect</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> create = effect.<span class="property">create</span>;</span><br><span class="line">    effect.<span class="property">destroy</span> = <span class="title function_">create</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// effects如下</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">tag</span>: <span class="number">5</span>, <span class="comment">// 标识hook类型</span></span><br><span class="line">  <span class="attr">create</span>: <span class="function">() =&gt;</span> &#123; <span class="comment">// 这个就是用户的effect函数</span></span><br><span class="line">    <span class="keyword">debugger</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;effect!&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">destroy</span>: <span class="literal">undefined</span>, <span class="comment">// 存储可能存在的销毁函数</span></span><br><span class="line">  <span class="attr">deps</span>: <span class="literal">null</span>, <span class="comment">// 依赖数组</span></span><br><span class="line">  <span class="attr">next</span>: [<span class="title class_">Circular</span>], <span class="comment">// 下一个effect</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="commitMutationEffects"><a href="#commitMutationEffects" class="headerlink" title="commitMutationEffects"></a>commitMutationEffects</h3><ul>
+<li><strong>之前说过，React在这个函数中把Fiber树对应渲染好的真实DOM树添加到页面上，除此之外还会执行一次特定<code>effects</code></strong></li>
+</ul>
+<h4 id="commitHookEffectListUnmount"><a href="#commitHookEffectListUnmount" class="headerlink" title="commitHookEffectListUnmount"></a>commitHookEffectListUnmount</h4><ul>
+<li><strong>执行所有<code>effects</code>的销毁函数，因为组件进行了一次更新</strong></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分源码</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ((effect.<span class="property">tag</span> &amp; tag) === tag) &#123;</span><br><span class="line">        <span class="comment">// Unmount</span></span><br><span class="line">        <span class="keyword">var</span> destroy = effect.<span class="property">destroy</span>; <span class="comment">// effect 对象</span></span><br><span class="line">        effect.<span class="property">destroy</span> = <span class="literal">undefined</span>;</span><br><span class="line">        <span class="keyword">if</span> (destroy !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">          <span class="title function_">destroy</span>(); <span class="comment">// 这个就是销毁函数</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      effect = effect.<span class="property">next</span>; <span class="comment">// 执行下一个effect</span></span><br><span class="line">    &#125; <span class="keyword">while</span> (effect !== firstEffect);</span><br></pre></td></tr></table></figure>
+
+<h3 id="commitLayoutEffects"><a href="#commitLayoutEffects" class="headerlink" title="commitLayoutEffects"></a>commitLayoutEffects</h3><ul>
+<li>在真实DOM渲染完成之后类似方式调用的函数</li>
+</ul>
+<blockquote>
+<p>invokeGuardedCallback(null, commitLayoutEffects, null, root, lanes);</p>
+</blockquote>
+<h4 id="commitLifeCycles"><a href="#commitLifeCycles" class="headerlink" title="commitLifeCycles"></a>commitLifeCycles</h4><ul>
+<li><p>如同函数名称一样，会处理各种生命周期函数（包括：effects）</p>
+</li>
+<li><p><code>commitHookEffectListMount</code>函数在满足某种条件下（没看懂…），执行<code>effect</code>函数</p>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分源码</span></span><br><span class="line"><span class="keyword">if</span> ((effect.<span class="property">tag</span> &amp; tag) === tag) &#123;</span><br><span class="line">    <span class="comment">// Mount</span></span><br><span class="line">    <span class="keyword">var</span> create = effect.<span class="property">create</span>;</span><br><span class="line">    effect.<span class="property">destroy</span> = <span class="title function_">create</span>();</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> destroy = effect.<span class="property">destroy</span>;</span><br><span class="line">        <span class="keyword">if</span> (destroy !== <span class="literal">undefined</span> &amp;&amp; <span class="keyword">typeof</span> destroy !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// ... 很多对返回的destroy函数使用不当的warn</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="schedulePassiveEffects"><a href="#schedulePassiveEffects" class="headerlink" title="schedulePassiveEffects"></a>schedulePassiveEffects</h4><ul>
+<li><code>schedulePassiveEffects</code>函数会将需要执行的<code>effect</code>保存下来，在后续调用？</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分源码</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _effect = effect,</span><br><span class="line">        next = _effect.<span class="property">next</span>,</span><br><span class="line">        tag = _effect.<span class="property">tag</span>;</span><br><span class="line">    <span class="keyword">if</span> ((tag &amp; <span class="title class_">Passive</span>$<span class="number">1</span>) !== <span class="title class_">NoFlags</span>$<span class="number">1</span> &amp;&amp; (tag &amp; <span class="title class_">HasEffect</span>) !== <span class="title class_">NoFlags</span>$<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 下面两个函数分别将fiber和hook存入pendingPassiveHookEffectsUnmount和pendingPassiveHookEffectsMount</span></span><br><span class="line">        <span class="comment">// 而pendingPassiveHookEffectsMount就是在flushPassiveEffects函数中获取effect的数组</span></span><br><span class="line">        <span class="title function_">enqueuePendingPassiveHookEffectUnmount</span>(finishedWork, effect);</span><br><span class="line">        <span class="title function_">enqueuePendingPassiveHookEffectMount</span>(finishedWork, effect);</span><br><span class="line">    &#125;</span><br><span class="line">    effect = next;</span><br><span class="line">&#125; <span class="keyword">while</span> (effect !== firstEffect);</span><br></pre></td></tr></table></figure>
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">tyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://callmetyt.top/2022/03/27/ReactSourceHookDebug/">http://callmetyt.top/2022/03/27/ReactSourceHookDebug/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://callmetyt.top" target="_blank">CallMeTyt</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/javascript/">javascript</a><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/source/">source</a></div><div class="post_share"><div class="social-share" data-image="/img/cover_3.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/06/ReactSourceDiffDebug/"><img class="prev-cover" src="/img/cover_1.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ReactSourceDiffDebug</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/21/ReactSourceDebug/"><img class="next-cover" src="/img/cover_5.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ReactSourceDebug</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/21/ReactSourceDebug/" title="ReactSourceDebug"><img class="cover" src="/img/cover_5.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">ReactSourceDebug</div></div></a></div><div><a href="/2021/05/31/wirteMyAsync/" title="手动实现一个简单的async"><img class="cover" src="/img/cover_1.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-31</div><div class="title">手动实现一个简单的async</div></div></a></div><div><a href="/2021/05/19/wirteMyPromise/" title="手动实现一个简单的Promise"><img class="cover" src="/img/cover_3.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-19</div><div class="title">手动实现一个简单的Promise</div></div></a></div><div><a href="/2022/04/06/ReactSourceDiffDebug/" title="ReactSourceDiffDebug"><img class="cover" src="/img/cover_1.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-06</div><div class="title">ReactSourceDiffDebug</div></div></a></div><div><a href="/2021/11/15/vue2SourceDebug/" title="vue2SourceDebug"><img class="cover" src="/img/cover_6.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-15</div><div class="title">vue2SourceDebug</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://imgs.aixifan.com/o_1cne9632b14li1lvm14q512i21uf1r.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">tyt</div><div class="author-info__description">只是一个普通的前端coder罢了</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/callmetyt"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/callmetyt" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">Hook流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#beginWork"><span class="toc-number">2.1.</span> <span class="toc-text">beginWork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#renderWithHooks"><span class="toc-number">2.2.</span> <span class="toc-text">renderWithHooks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useState"><span class="toc-number">2.3.</span> <span class="toc-text">useState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect"><span class="toc-number">2.4.</span> <span class="toc-text">useEffect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#commitRoot"><span class="toc-number">2.5.</span> <span class="toc-text">commitRoot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#commitBeforeMutationEffects"><span class="toc-number">2.6.</span> <span class="toc-text">commitBeforeMutationEffects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#flushPassiveEffects"><span class="toc-number">2.6.1.</span> <span class="toc-text">flushPassiveEffects</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#invokePassiveEffectCreate"><span class="toc-number">2.6.2.</span> <span class="toc-text">invokePassiveEffectCreate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#commitMutationEffects"><span class="toc-number">2.7.</span> <span class="toc-text">commitMutationEffects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#commitHookEffectListUnmount"><span class="toc-number">2.7.1.</span> <span class="toc-text">commitHookEffectListUnmount</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#commitLayoutEffects"><span class="toc-number">2.8.</span> <span class="toc-text">commitLayoutEffects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#commitLifeCycles"><span class="toc-number">2.8.1.</span> <span class="toc-text">commitLifeCycles</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#schedulePassiveEffects"><span class="toc-number">2.8.2.</span> <span class="toc-text">schedulePassiveEffects</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/06/ReactSourceDiffDebug/" title="ReactSourceDiffDebug"><img src="/img/cover_1.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactSourceDiffDebug"/></a><div class="content"><a class="title" href="/2022/04/06/ReactSourceDiffDebug/" title="ReactSourceDiffDebug">ReactSourceDiffDebug</a><time datetime="2022-04-05T23:28:32.000Z" title="发表于 2022-04-06 07:28:32">2022-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/27/ReactSourceHookDebug/" title="ReactSourceHookDebug"><img src="/img/cover_3.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactSourceHookDebug"/></a><div class="content"><a class="title" href="/2022/03/27/ReactSourceHookDebug/" title="ReactSourceHookDebug">ReactSourceHookDebug</a><time datetime="2022-03-27T02:51:50.000Z" title="发表于 2022-03-27 10:51:50">2022-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/ReactSourceDebug/" title="ReactSourceDebug"><img src="/img/cover_5.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactSourceDebug"/></a><div class="content"><a class="title" href="/2022/03/21/ReactSourceDebug/" title="ReactSourceDebug">ReactSourceDebug</a><time datetime="2022-03-20T23:52:01.000Z" title="发表于 2022-03-21 07:52:01">2022-03-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By tyt</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi,welcome to my bolg</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
