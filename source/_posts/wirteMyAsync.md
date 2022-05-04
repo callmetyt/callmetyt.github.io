@@ -42,7 +42,7 @@ test().then(res => console.log(res))
 
 代码效果
 
-![](1.gif)
+{% asset_img 1.gif 效果图 %}
 
 - 可以看到使用async函数，await标识出异步代码，js执行时就会在进行异步阻塞，整个async函数会停止下来
   - 关于async函数具体使用见[阮一峰大佬的教学](https://es6.ruanyifeng.com/#docs/async)
@@ -182,7 +182,7 @@ dataPromise.then((value1) => {
 
 - 最终效果
 
-  ![](2.gif)
+  {% asset_img 2.gif 效果图 %}
 
 --
 

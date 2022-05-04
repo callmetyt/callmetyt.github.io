@@ -111,7 +111,7 @@ function createFiberRoot(containerInfo, tag, hydrate, hydrationCallbacks) {
 
 附上此时的调用栈
 
-![3](3.png)
+{% asset_img 3.png 调用栈 %}
 
 #### Fiber
 
@@ -119,7 +119,7 @@ function createFiberRoot(containerInfo, tag, hydrate, hydrationCallbacks) {
 - React整体基于Fiber树进行更新，可以说Fiber树就是React的虚拟DOM
 - Fiber树的结构如下，以DEMO为例：
 
-![1](1.png)
+{% asset_img 1.png Fiber树结构 %}
 
 - **每个Fiber只有一个父节点、一个子节点、一个兄弟节点**，可能没有父节点（root），可能没有子节点（两个span和button）、可能没有兄弟节点，但有也不会超过一个
 
@@ -135,7 +135,7 @@ function createFiberRoot(containerInfo, tag, hydrate, hydrationCallbacks) {
 
 - Fiber节点上记录了对应节点的所有需要渲染的属性，例如：rootFiber有下面这些属性（**某些属性是rootFiber独有的**）：
 
-![2](2.png)
+{% asset_img 2.png Fiber属性 %}
 
 #### 事件监听
 
@@ -198,7 +198,7 @@ function workLoopSync() {
 
 此时的调用栈：
 
-![4](4.png)
+{% asset_img 4.png 调用栈 %}
 
 ### Fiber遍历
 
@@ -209,7 +209,7 @@ function workLoopSync() {
 - 这两个函数都会根据Fiber节点的不同，进行不同的处理
   - **`beginWork`函数会对每一种Fiber节点调用`reconcileChildren`函数，通过传入Fiber的child（这里的child是通过JSX解析获取的，还不是Fiber）创建对应的Fiber并且返回这个Fiber**
   - **`completeUnitOfWork`函数则会根据Fiber的类型真正创建DOM节点，并对其初始化**
-- 同时在`workLoopSync`内部会按照下面的顺序进行遍历（**b代表`beginWork`，b1代表第一步调用`beginWork`处理对应节点**）：![5](5.png)
+- 同时在`workLoopSync`内部会按照下面的顺序进行遍历（**b代表`beginWork`，b1代表第一步调用`beginWork`处理对应节点**）：{% asset_img 5.png 更新顺序 %}
 
 - 可以看出，Fiber树遍历之后，`workLoopSync`会返回Fiber树的根节点，也就是`root`节点
 
@@ -240,7 +240,7 @@ do {
   - `invokeGuardedCallback(null, commitBeforeMutationEffects, null);`
   - `invokeGuardedCallback(null, commitLayoutEffects, null, root, lanes);`
 
-此时的调用栈：![6](6.png)
+此时的调用栈：{% asset_img 6.png 调用栈 %}
 
 - 在上述代码执行过后，页面上才会真正渲染出真实DOM
 

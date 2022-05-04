@@ -96,7 +96,7 @@ const Test = () => {
 
 此时的调用栈
 
-![1](11.png)
+{% asset_img 11.png 调用栈 %}
 
 - Fiber的tag为2，由如下源码可知，是因为React还不知道是`class`还是`function`
 
@@ -128,13 +128,13 @@ ReactCurrentDispatcher$1.current = HooksDispatcherOnMountInDEV;
 
 下图为部分hook
 
-![22](22.png)
+{% asset_img 22.png 部分hook %}
 
 - 之后调用`function`组件，执行用户代码，获取`child`
 
 调用栈如图
 
-![33](33.png)
+{% asset_img 33.png 调用栈 %}
 
 ### useState
 
@@ -248,7 +248,7 @@ function mountEffectImpl(fiberFlags, hookFlags, create, deps) {
 
 此时的调用栈
 
-![44](44.png)
+{% asset_img 44.png 调用栈 %}
 
 ### commitBeforeMutationEffects
 
